@@ -1,0 +1,19 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h1>Our home page</h1>
+<p>This is our home page.</p>
+
+{% if current_user %}
+<h2>Hello, {{ request.session.email }}!</h2>  
+<h3>The number of ducks you have is {{ request.session.current_user_data.num_ducks }}.</h3>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+
+    {% load staticfiles %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+{% endblock %}
