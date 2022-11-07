@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome to our website!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    .row.content {height: 450px}
+    
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!--<a class="navbar-brand" href="#">Logo</a> -->
+      <img src="./images.jpg" alt="Duck Recycle Logo"style="width:50px;height:50px;">
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Game</a></li>
+        <li><a href="#">Map</a></li>
+        <li><a href="#">About</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="#">What we do</a></p>
+      <p><a href="#">How to play the game</a></p>
+      <p><a href="#">Need help</a></p>
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h1>Welcome</h1>
+      <p>This is our website for our CMSC 447 project. Our goal with this website is to
+        encourage people to engage in environmental cleanup. We will have a map where once
+        users login, they can pin locations that need cleanup, and also locations that have
+        been recenty cleaned. On top of that, we will offer a fun game to futher encourage 
+        our users to care and recycle.
+      </p>
+      <p>
+        We have tabs that can assist the user if they need help, the lonk to our game and the map,
+        and an about page wehre the user can ask for help or submit feedback.
+      </p>
+      <p>
+        Users can also use our login link to to access their account and utilize our map and game.
+      <hr>
+      <h3>Group Members:</h3>
+      <p>Scott Witschey</p>
+      <p>Dinora Blanco</p>
+      <p>Rachel Chambers</p>
+      <p>Shreyansh Kumar</p>
+      <p>Naomi Tack</p>
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Thank you for visiting our website</p>
+</footer>
+
+</body>
+</html>
