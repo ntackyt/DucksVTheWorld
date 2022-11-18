@@ -7,7 +7,7 @@ https://stackoverflow.com/questions/34968413/error-index-not-defined-add-indexon
 """
 from datetime import datetime
 from django.shortcuts import render, redirect
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from app import forms
 from .forms import BootstrapAuthenticationForm, BootstrapRegisterForm
 
@@ -22,7 +22,7 @@ import json
 
 
 firebaseConfig = {
-  "apiKey": "insert API here",
+  "apiKey": "AIzaSyAEAeGmrnWjANDIdSItht4fsJI2AtzE7oQ",
   "authDomain": "ducksvstheworld-d7723.firebaseapp.com",
   "databaseURL": "https://ducksvstheworld-d7723-default-rtdb.firebaseio.com",
   "projectId": "ducksvstheworld-d7723",
@@ -51,8 +51,6 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     
-    data1 = {"email":"meeeeeeee@gmail.com","password":"me"}
-    db.child("Data").push(data1)
     #accessing our firebase data and storing it in a variable
     '''userid = database.child('Data').child('id').get().val()
     #username = database.child('Data').child('username').get().val()
@@ -117,26 +115,30 @@ def postlogin(request):
     # set current session with user token
     session_id=user['idToken']
     request.session['uid']=str(session_id)
+   
 
     # get current user's data from database
     user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user['localId']).get()
-    for user in user_db_data.each():
-        print("KEY:", user.key()) # Morty
-        print("VALUE:", user.val()) # {name": "Mortimer 'Morty' Smith"}
-        print(type(user.val()))
-        print(dict(user.val()))
+    for user1 in user_db_data.each():
+        print("KEY:", user1.key()) # Morty
+        print("VALUE:", user1.val()) # {name": "Mortimer 'Morty' Smith"}
+        print(type(user1.val()))
+        print(dict(user1.val()))
 
     # if user data is not in database, then throw error message
     if not user_db_data.val():
         message="No user data in database. Contact administrator at ducksvstheworld@gmail.com"
         return render(request,"app/login.html", {'message':message, 'current_user': auth.current_user, "form":form})
-    first_item = list(user_db_data.val().items())[0]
-    print(first_item[0])
-    print(first_item[1]['user_data'])
+    user_data = list(user_db_data.val().items())[0]
+    print("first item: ", user_data[0])
+    print("first item 1[userdata]", user_data[1]['user_data'])
+    print("local id", user['localId'])
     # set user data to current session
+    request.session['user_push_id'] = user_data[0]
+    request.session['localId'] = user['localId']
     request.session['email'] = email
     request.session['current_user'] = auth.current_user
-    request.session['current_user_data'] = first_item[1]['user_data']
+    request.session['current_user_data'] = user_data[1]['user_data']
 
 
     '''
@@ -164,6 +166,8 @@ def postsignup(request):
      email = request.POST.get('email')
      password1 = request.POST.get('password1')
      password2 = request.POST.get('password2')
+     first_name = request.POST.get('first_name')
+     last_name = request.POST.get('last_name')
      form = BootstrapRegisterForm()
      message = ""
 
@@ -204,8 +208,11 @@ def postsignup(request):
      data = {
         "user_id": user['localId'],
         "user_data": {
+            "first_name": first_name,
+            "last_name": last_name,
             "num_ducks": 0,
-            "num_points": 0
+            "num_points": 0,
+            "prof_desc": ""
             }
      }
      #print(user['idToken'])
@@ -228,7 +235,13 @@ def logout(request):
     try:
         print("LOGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
         del request.session['uid']
-        authe.current_user = None
+        del request.session['']
+        del request.session['user_push_id']
+        del request.session['localId']
+        del request.session['email']
+        del request.session['current_user']
+        del request.session['current_user_data']
+        auth.current_user = None
     except:
         pass
     #return render(request,"app/login.html")
@@ -248,6 +261,39 @@ def contact(request):
         }
     )
 
+def profile(request):
+    assert isinstance(request, HttpRequest)
+    
+    # If we got an POST request from an ajax command
+    # i.e., if a user edited an attribute on the profile page
+    if request.method == 'POST' and request.is_ajax():
+        attribute_type = request.POST.get("attribute_type")
+        new_value = request.POST.get("new_value")
+        old_value = request.POST.get("old_value")
+
+        # To get the push id for the current user, as that is what the user data is filed under in JSOn format
+        current_user_push_id = request.session['user_push_id']
+    
+        error_msg = "e"
+        success = True
+        try:
+            db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({attribute_type: new_value})  
+        except Exception as e:
+            error_msg = e.args[1]
+            success = False
+
+        # Update session first name value if successful
+        if (success == True):
+            request.session['current_user_data'][attribute_type] = new_value
+            # Tells Django to that we made a change to a session variable and to update it
+            request.session.modified = True
+    
+        # Return 200 OK with json data about success of update operation
+        return HttpResponse(json.dumps({'success': success, 'attribute_type':attribute_type, 'error_msg': error_msg, 'old_value': old_value}), content_type="application/json");
+    else:
+        return render(request, "app/profile.html")
+
+
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
@@ -261,3 +307,6 @@ def about(request):
         }
     )
 
+def add_pin(request):
+    if request.method == 'POST':
+        request.POST.get('')

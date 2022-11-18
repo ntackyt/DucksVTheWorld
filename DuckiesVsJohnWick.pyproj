@@ -56,10 +56,12 @@
     <Folder Include="DuckiesVsJohnWick\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\scripts\profile_script.js" />
     <Content Include="app\templates\app\home.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
     <Content Include="app\templates\app\signup.html" />
+    <Content Include="app\templates\app\profile.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

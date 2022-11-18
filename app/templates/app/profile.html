@@ -1,0 +1,60 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+{% if request.session.uid %}
+<div id="profile">
+    <h2 id="profile_greeting">Hello, {{ request.session.current_user_data.first_name }}!</h2>
+    <p>Profile image goes here</p>
+    <p id="profile_first_name_content">
+        <span class="profile_label">First name:</span>
+        <span id="profile_first_name_display">
+            <span id="profile_first_name_value">{{ request.session.current_user_data.first_name }}</span>
+            <button onclick="edit('first_name')"><span class="glyphicon glyphicon-pencil"></span></button>
+        </span>
+        <span class="profile_hidden" id="profile_first_name_edit">
+            <input id="profile_first_name_input" value="{{ request.session.current_user_data.first_name }}" />
+            <button onclick="change_user_attribute('first_name')"><span class="glyphicon glyphicon-check"></span></button>
+        </span>
+    </p>
+    <p id="profile_last_name_content">
+        <span class="profile_label">Last name:</span>
+        <span id="profile_last_name_display">
+            <span id="profile_last_name_value">{{ request.session.current_user_data.last_name }}</span>
+            <button onclick="edit('last_name')"><span class="glyphicon glyphicon-pencil"></span></button>
+        </span>
+        <span class="profile_hidden" id="profile_last_name_edit">
+            <input id="profile_last_name_input" value="{{ request.session.current_user_data.last_name }}" />
+            <button onclick="change_user_attribute('last_name')"><span class="glyphicon glyphicon-check"></span></button>
+        </span>
+    </p>
+
+    <p><span class="profile_label">Ducks:</span> {{ request.session.current_user_data.num_ducks }} </p>
+
+    <p><span class="profile_label">Points:</span> {{ request.session.current_user_data.num_points }} </p>
+
+    <p id="profile_prof_desc_content">
+        <span class="profile_label">Profile description:</span>
+        <button onclick="edit('prof_desc')" id="profile_prof_desc_pencil"> <span class="glyphicon glyphicon-pencil"></span> </button>
+        <button onclick="change_user_attribute('prof_desc')" id="profile_prof_desc_check" class="profile_hidden"><span class="glyphicon glyphicon-check"></span></button>
+        <p id="profile_prof_desc_display">
+            <span id="profile_prof_desc_value">
+                {{ request.session.current_user_data.prof_desc }}
+            </span>
+        </p>
+        <span class="profile_hidden" id="profile_prof_desc_edit">
+            <textarea id="profile_prof_desc_input">{{ request.session.current_user_data.prof_desc }}</textarea>
+        </span>
+    </p>
+</div>
+    {% else %}
+    <h2>You are not signed in. <a href="/login/">Log in</a> to access your profile.</h2>
+    {% endif %}
+    {% endblock %}
+
+    {% block scripts %}
+
+    {% load staticfiles %}
+    <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+    {% endblock %}

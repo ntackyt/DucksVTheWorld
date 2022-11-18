@@ -2,18 +2,35 @@
 
 {% block content %}
 
-<h1>Our home page</h1>
-<p>This is our home page.</p>
+        <div class="col-sm-8 text-left">
+            <h1>Welcome</h1>
+            <p>
+                This is our website for our CMSC 447 project. Our goal with this website is to
+                encourage people to engage in environmental cleanup. We will have a map where once
+                users login, they can pin locations that need cleanup, and also locations that have
+                been recenty cleaned. On top of that, we will offer a fun game to futher encourage
+                our users to care and recycle.
+            </p>
+            <p>
+                We have tabs that can assist the user if they need help, the lonk to our game and the map,
+                and an about page wehre the user can ask for help or submit feedback.
+            </p>
+            <p>
+                Users can also use our login link to to access their account and utilize our map and game.
+                <hr>
+                <h3>Group Members:</h3>
+            <p>Scott Witschey</p>
+            <p>Dinora Blanco</p>
+            <p>Rachel Chambers</p>
+            <p>Shreyansh Kumar</p>
+            <p>Naomi Tack</p>
+        </div>
 
-{% if current_user %}
-<h2>Hello, {{ request.session.email }}!</h2>  
-<h3>The number of ducks you have is {{ request.session.current_user_data.num_ducks }}.</h3>
-{% endif %}
-{% endblock %}
+        {% endblock %}
 
-{% block scripts %}
+        {% block scripts %}
 
-    {% load staticfiles %}
-<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+        {% load staticfiles %}
+        <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
 
-{% endblock %}
+        {% endblock %}

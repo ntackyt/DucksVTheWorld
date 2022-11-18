@@ -25,6 +25,16 @@ class BootstrapRegisterForm(UserCreationForm):
                                widget=forms.TextInput({
                                    'class': 'form-control',
                                    'placeholder': 'Email'}))
+     first_name = forms.CharField(max_length=254,
+                                 label=_("First name"),
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder': 'First name'}))
+     last_name = forms.CharField(max_length=254,
+                               label=_("Last name"),
+                               widget=forms.TextInput({
+                                   'class': 'form-control',
+                                   'placeholder': 'Last name'}))
      password1 = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput({
                                    'class': 'form-control',

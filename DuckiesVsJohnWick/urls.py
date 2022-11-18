@@ -17,7 +17,9 @@ urlpatterns = [
     path('postlogin/', views.postlogin, name='postlogin'),
     path('signup/', views.signup, name='signup'),
     path('postsignup/', views.postsignup, name='postsignup'),
+    path('add_pin/', views.add_pin, name='add_pin'),
     #path('logout/', LogoutView.as_view(next_page=''), name='logout'),
     path('logout/', views.logout, name='logout'),
+    path('profile/', views.profile, name='profile'),
     path('admin/', admin.site.urls),
 ]
