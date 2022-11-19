@@ -307,6 +307,57 @@ def about(request):
         }
     )
 
+def game(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/game.html',
+        {
+            'title':'About',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
+
+def map(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/map.html',
+        {
+            'title':'About',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
+
 def add_pin(request):
-    if request.method == 'POST':
-        request.POST.get('')
+     pin_name = request.POST.get('pin_name')
+     pin_type_str = request.POST.get('pin_type_str')
+     pin_type_bool = request.POST.get('pin_type_bool')
+     pin_addr = request.POST.get('pin_addr')
+     pin_date = request.POST.get('pin_date')
+     pin_desc = request.POST.get('pin_desc')
+     pin_lat = request.POST.get('pin_lat')
+     pin_lng = request.POST.get('pin_lng')
+     trash_pic1 = request.POST.get('trash_pic1')
+     trash_pic2 = request.POST.get('trash_pic2')
+     
+     data = {
+        "pin_name": pin_name,
+        "pin_data": {
+            "pin_type_str": pin_type_str,
+            "pin_type_bool": pin_type_bool,
+            "pin_addr": pin_addr,
+            "pin_date": pin_date,
+            "pin_desc": pin_desc,
+            "pin_lat": pin_lat,
+            "pin_lng": pin_lng,
+            "pin_trash_pic1": trash_pic1,
+            "pin_trash_pic2": trash_pic2
+            }
+     }
+     results = db.child("Data").child("Posts").push(data)
+     return render(request, "app/map.html")
