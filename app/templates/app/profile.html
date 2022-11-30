@@ -3,9 +3,32 @@
 {% block content %}
 
 {% if request.session.uid %}
+
+{% for d in data %}
+{{ d[1].user_data.first_name }}
+{% endfor %}
+
+
 <div id="profile">
     <h2 id="profile_greeting">Hello, {{ request.session.current_user_data.first_name }}!</h2>
-    <p>Profile image goes here</p>
+
+    <div id="profile_prof_pic_content">
+        <img id="prof_pic" src="{{ request.session.current_user_data.prof_pic }}" width="100" height="100" />
+        <span id="profile_prof_pic_display">
+            <button onclick="edit('prof_pic')" id=""><span class="glyphicon glyphicon-pencil"></span></button>
+        </span>
+        <div class="profile_hidden" id="profile_prof_pic_edit">
+            <form enctype="multipart/form-data" action="/profile/" method="POST">
+                {% csrf_token %}
+                <button type="submit" id="profile_new_pic_button" accept=".jpg, .jpeg, .png">upload image</button>
+                <input type="file" id="new_prof_pic" name="file" required />
+            </form>
+
+        </div>
+        {{ error_msg }}
+    </div>
+
+
     <p id="profile_first_name_content">
         <span class="profile_label">First name:</span>
         <span id="profile_first_name_display">
@@ -37,24 +60,24 @@
         <span class="profile_label">Profile description:</span>
         <button onclick="edit('prof_desc')" id="profile_prof_desc_pencil"> <span class="glyphicon glyphicon-pencil"></span> </button>
         <button onclick="change_user_attribute('prof_desc')" id="profile_prof_desc_check" class="profile_hidden"><span class="glyphicon glyphicon-check"></span></button>
-        <p id="profile_prof_desc_display">
-            <span id="profile_prof_desc_value">
-                {{ request.session.current_user_data.prof_desc }}
-            </span>
-        </p>
-        <span class="profile_hidden" id="profile_prof_desc_edit">
-            <textarea id="profile_prof_desc_input">{{ request.session.current_user_data.prof_desc }}</textarea>
+    <p id="profile_prof_desc_display">
+        <span id="profile_prof_desc_value">
+            {{ request.session.current_user_data.prof_desc }}
         </span>
     </p>
+    <span class="profile_hidden" id="profile_prof_desc_edit">
+        <textarea id="profile_prof_desc_input">{{ request.session.current_user_data.prof_desc }}</textarea>
+    </span>
+    </p>
 </div>
-    {% else %}
-    <h2>You are not signed in. <a href="/login/">Log in</a> to access your profile.</h2>
-    {% endif %}
-    {% endblock %}
+{% else %}
+<h2>You are not signed in. <a href="/login/">Log in</a> to access your profile.</h2>
+{% endif %}
+{% endblock %}
 
-    {% block scripts %}
+{% block scripts %}
 
-    {% load staticfiles %}
-    <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+{% load staticfiles %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
 
-    {% endblock %}
+{% endblock %}

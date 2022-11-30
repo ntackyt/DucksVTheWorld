@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from app import forms
 from .forms import BootstrapAuthenticationForm, BootstrapRegisterForm
+from django.core.files.storage import default_storage
 
 # To interface with Google Firebase
 import pyrebase
@@ -262,19 +263,31 @@ def contact(request):
     )
 
 def profile(request):
+    results2 = db.child("Data").child("Users").get()
+    for user in results2.each():
+        print("KEY:", user.key()) # Morty
+        print("VALUE:", user.val()) # {name": "Mortimer 'Morty' Smith"}
+     # print(results)
+
+
     assert isinstance(request, HttpRequest)
     
+    pic_url = storage.child("prof_pics/realistic_duck.jpg").get_url(None)
+
     # If we got an POST request from an ajax command
     # i.e., if a user edited an attribute on the profile page
     if request.method == 'POST' and request.is_ajax():
         attribute_type = request.POST.get("attribute_type")
+
+       
+        # If we are getting an ajax request, then we are just getting text values
         new_value = request.POST.get("new_value")
         old_value = request.POST.get("old_value")
 
-        # To get the push id for the current user, as that is what the user data is filed under in JSOn format
+        # To get the push id for the current user, as that is what the user data is filed under in JSON format
         current_user_push_id = request.session['user_push_id']
     
-        error_msg = "e"
+        error_msg = ""
         success = True
         try:
             db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({attribute_type: new_value})  
@@ -290,8 +303,29 @@ def profile(request):
     
         # Return 200 OK with json data about success of update operation
         return HttpResponse(json.dumps({'success': success, 'attribute_type':attribute_type, 'error_msg': error_msg, 'old_value': old_value}), content_type="application/json");
-    else:
-        return render(request, "app/profile.html")
+    elif request.method == 'POST':
+        # If we are getting a profile pic
+        # https://dev.to/mdrhmn/django-firebase-cloud-storage-331p
+        print("prof_pic")
+        # Get new profile picture
+        file = request.FILES.get("file")
+        
+        # Make sure file is a picture 
+
+
+        # Save file to local machine so it can be uploaded to Firebase
+        file_save = default_storage.save(file.name, file)
+        # Upload profile pic to Firebase
+        storage.child("prof_pics/" + file.name).put(file.name)
+        # Delete file from local machine
+        delete = default_storage.delete(file.name)
+        print()
+        #messages.success(request, "File upload in Firebase Storage successful")
+        success = True
+
+        return HttpResponse(json.dumps({'success': success}), content_type="application/json");
+    return render(request, "app/profile.html", {'success':True, 'error_msg':""})
+
 
 
 def about(request):
