@@ -22,6 +22,15 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+function loadmap() {
+    for (pin in curr_pins){
+        const popupTxt =  '<h1 style="font-size:20px">' + curr_pins[pin].pin_name + '</h1>'
+        marker = new L.Marker([curr_pins[pin].pin_data.pin_lat, curr_pins[pin].pin_data.pin_lng],).addTo(map).bindPopup(popupTxt);        
+    }
+}
+loadmap();
+
+
 var lat;
 var lng;
 var newMarker = null;
@@ -51,9 +60,16 @@ map.on('click', function(e){
     }
   }
 
-  function editSelect(){
-
-  }
+  function assignPoints(){
+    var typeSelect = document.getElementById("pinType");
+    var type = typeSelect.options[typeSelect.selectedIndex].value;
+    var points = document.getElementById("pinPoints");
+    if(type == 1){
+        points.value = 6;
+    }
+    else { points.value = 4; }
+    console.log(points.value);
+}
 
 
 // Get the button
