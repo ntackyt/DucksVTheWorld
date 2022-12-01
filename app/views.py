@@ -354,6 +354,20 @@ def game(request):
         }
     )
 
+def game_1(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/Game 1/index.html',
+        {
+            'title':'About',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
+
+
 def map(request):
     """Renders the map page."""
     assert isinstance(request, HttpRequest)
@@ -394,4 +408,4 @@ def add_pin(request):
             }
      }
      results = db.child("Data").child("Posts").push(data)
-     return map(request)
+     return redirect("map")
