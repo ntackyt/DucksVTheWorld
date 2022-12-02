@@ -55,6 +55,7 @@
     <Content Include="app\static\app\modules\map.js" />
     <Content Include="app\static\app\scripts\bootstrap.js" />
     <Content Include="app\static\app\scripts\bootstrap.min.js" />
+    <Content Include="app\static\app\scripts\stats.js" />
     <Content Include="images.jpg" />
     <Content Include="readme.html" />
     <Content Include="README.md" />
