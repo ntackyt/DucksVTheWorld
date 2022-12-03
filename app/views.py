@@ -8,6 +8,7 @@ https://stackoverflow.com/questions/34968413/error-index-not-defined-add-indexon
 from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import HttpResponse
 from app import forms
 from .forms import BootstrapAuthenticationForm, BootstrapRegisterForm
 from django.core.files.storage import default_storage
@@ -344,6 +345,37 @@ def about(request):
 def game(request):
     """Renders the games page."""
     assert isinstance(request, HttpRequest)
+
+    if request.method == 'POST':
+
+        # To get the push id for the current user, as that is what the user data is filed under in JSON format
+        current_user_push_id = request.session['user_push_id']
+        current_user_local_id = request.session['localId']
+
+        # get the points earned
+        points_earned = request.POST.get("points_earned")
+
+        # If we are getting an ajax request, then we are just getting text values
+        old_points = db.child("Data").child("Users").order_by_child("user_id").equal_to(current_user_local_id).get()
+        old_points_list = list(old_points.val().items())[0]
+        print(old_points_list[1]['user_data']['num_points'])
+        print(points_earned)
+        points_earned = int(points_earned) + int(old_points_list[1]['user_data']['num_points'])
+        print(points_earned)
+        error_msg = ""
+        success = True
+        try:
+            db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({"num_points": points_earned})  
+        except Exception as e:
+            error_msg = e.args[1]
+            success = False
+        print(success)
+        # Update session first name value if successful
+        if (success == True):
+            request.session['current_user_data']['num_points'] = points_earned
+            # Tells Django to that we made a change to a session variable and to update it
+            request.session.modified = True
+
     return render(
         request,
         'app/game.html',

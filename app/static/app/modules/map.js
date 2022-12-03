@@ -30,7 +30,8 @@ function loadmap() {
         // Create Post    
         const newPost = document.createElement('div');  
         newPost.classList.add('postDisp');
-        newPost.textContent = curr_pins[pin].pin_name;
+        const postText = '<h1 style="font-size:20px">'+curr_pins[pin].pin_name + '</h1>\n' +curr_pins[pin].pin_data.pin_desc +'\n';
+        newPost.textContent = postText;
         document.getElementById('postsScroll').append(newPost);
         document.getElementById('postsScroll').append(document.createElement('br'));
     }

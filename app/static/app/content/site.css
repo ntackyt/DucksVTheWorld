@@ -144,7 +144,7 @@ input[type="checkbox"].input-validation-error {
   }
   
   .postDisp {
-    background-color:  #c2d7e9c0;
+    background-color:  #47a6f9c0;
     border: 2px solid black;
     outline:#3379b7c0 10px;
     width: 410px;
@@ -190,3 +190,33 @@ input[type="checkbox"].input-validation-error {
     border: 1px solid #ccc;
     border-top: none;
   }
+
+  #game-board {
+    background-color: rgb(0, 0, 0);
+    background-image: repeating-linear-gradient(-45deg, rgba(4, 118, 10, 0.04), rgba(28, 101, 38, 0.04) 6px, transparent 7px, transparent 10px);
+    background-size: 120px 120px;
+    width: 930px;
+    height: 550px;
+    display: grid; 
+    grid-template-rows: repeat(21, 1fr);
+    grid-template-columns: repeat(21, 1fr);  
+    border-right: .3vmin solid rgb(113, 121, 115);
+    border-left: .3vmin solid rgb(113, 121, 115); 
+
+}
+
+.snake {
+    background-image:  linear-gradient(135deg, #074501 25%, transparent 25%), linear-gradient(225deg, #0a6304 25%, transparent 25%), linear-gradient(45deg, #096602 25%, transparent 25%), linear-gradient(315deg, #0b8103 25%, #021e01 25%);
+    background-position:  7.7px 0, 7.7px 0, 0 0, 0 0;
+    background-size: 7.7px 7.7px;
+    background-repeat: repeat;
+    border: .2vmin solid rgb(2, 104, 17);
+}
+
+.food{
+    width:25px;
+    height:25px;
+    background-color:  #ff4355;
+    box-shadow: inset 5px -5px  #cc1022;
+    border-radius: 12px 12px 13px 13px;
+}

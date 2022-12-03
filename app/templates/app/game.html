@@ -12,16 +12,18 @@
           <div id="Game 1" class="tabcontent">
             <iframe id="inlineFrameExample"
               title="Inline Frame Example"
-              width="900"
-              height="600"
+              width="930"
+              height="550"
               src="http://www.schillmania.com/survivor/">
             </iframe>
           </div>
                                   
           <div id="Game 2" class="tabcontent">
-            <h3> COMING SOON! </h3>
+            <div id="game-board" width="930" height="550"></div>
           </div>
-          
+          {% load static %}
+          <script src="{% static 'app/scripts/game.js' %}" defer type="module"></script>
+
           <script>
             function openCity(evt, cityName) {
               var i, tabcontent, tablinks;
