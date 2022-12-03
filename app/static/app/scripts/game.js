@@ -38,7 +38,7 @@ function main(currentTime) {
                 'X-CSRFToken': csrftoken
             },
             data: {
-                "points_earned": 4
+                "points_earned": snakeLength
             },
             success: function (response) {
                 if (response.success == True) {

@@ -39,6 +39,7 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 db = firebase.database()
+storage = firebase.storage()
 
 # validate that a given string is an email
 def validate_email(email):

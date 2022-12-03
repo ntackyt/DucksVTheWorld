@@ -2,6 +2,7 @@
 export const SNAKE_SPEED = 7
 const snakeBody = [{ x: 11, y: 11 }]
 let newSegments = 0
+let snakeLength = 0
 
 //setting current snake direction and previous direction
 let inputDirection = { x: 0, y: 0}
@@ -58,6 +59,7 @@ function equalPositions(pos1, pos2) {
 function addSegments() {
   for (let i = 0; i < newSegments; i++) {
     snakeBody.push({ ...snakeBody[snakeBody.length - 1] })
+    snakeLength = snakeLength + 1 
   }
 
   newSegments = 0
