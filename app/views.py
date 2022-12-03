@@ -409,7 +409,23 @@ def add_pin(request):
      pin_points =  request.POST.get('pin_points')
      trash_pic1 = request.POST.get('trash_pic1')
      trash_pic2 = request.POST.get('trash_pic2')
-     
+
+    # get the old point and update them
+     current_user_push_id = request.session['user_push_id']
+     current_user_local_id = request.session['localId']
+     old_points = db.child("Data").child("Users").order_by_child("user_id").equal_to(current_user_local_id).get()
+     old_points_list = list(old_points.val().items())[0]
+     print(old_points_list[1]['user_data']['num_points'])
+     print(pin_points)
+     user_points = int(pin_points) + int(old_points_list[1]['user_data']['num_points'])
+     success = True
+     try:
+        db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({"num_points": user_points})  
+     except Exception as e:
+        error_msg = e.args[1]
+        success = False
+     print(success)
+
      data = {
         "pin_name": pin_name,
         "pin_user_id": request.session['localId'],
