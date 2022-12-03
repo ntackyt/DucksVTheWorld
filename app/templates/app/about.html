@@ -3,8 +3,15 @@
 {% block content %}
 
 <h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>Hello! <br> We hope you are enjoying our site! </p>
 
+
+
+<script>
+    document.getElementById("game_page").className = "";
+    document.getElementById("home_page").className = "";
+    document.getElementById("map_page").className = "";
+    document.getElementById("about_page").className = "active";
+</script>
 {% endblock %}

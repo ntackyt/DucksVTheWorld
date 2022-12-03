@@ -3,37 +3,47 @@
 {% block content %}
 
         <div class="col-sm-8 text-left">
-          <div class="container-fluid text-center">    
-            <div class="row content">
-              <div class="col-sm-8 text-left"> 
-                  <button data-toggle="collapse" class="btn btn-primary" type="button" data-target="#gameSurvivor" aria-expanded="false" aria-controls="collapseExample">
-                    <!--<a href="{% url 'game_1' %}">Game 1</a>-->
-                    Game 1
-                  </button>
-                  <tab>
-                  <button data-toggle="collapse" class="btn btn-primary" type="button" data-target="#gameSnake" aria-expanded="false" aria-controls="collapseExample">
-                    <!--<a href="{% url 'game_survivor' %}">GAME 1 EMBED</a> -->
-                    Game 2
-                  </button>                
-              </div>
-               
-                
-                <div class="collapse" id="gameSurvivor">
-                    <iframe id="inlineFrameExample"
-                      title="Inline Frame Example"
-                      width="900"
-                      height="600"
-                      src="http://www.schillmania.com/survivor/">
-                    </iframe>
-                </div>
-              
-
-              <div class="collapse" id="gameSnake">
-                <h2> COMING SOON! </h2>
-              </div>
-
-            </div>
+          
+          <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Game 1')">Game 1</button>
+            <button class="tablinks" onclick="openCity(event, 'Game 2')">Game 2</button>
           </div>
+
+          <div id="Game 1" class="tabcontent">
+            <iframe id="inlineFrameExample"
+              title="Inline Frame Example"
+              width="900"
+              height="600"
+              src="http://www.schillmania.com/survivor/">
+            </iframe>
+          </div>
+                                  
+          <div id="Game 2" class="tabcontent">
+            <h3> COMING SOON! </h3>
+          </div>
+          
+          <script>
+            function openCity(evt, cityName) {
+              var i, tabcontent, tablinks;
+              tabcontent = document.getElementsByClassName("tabcontent");
+              for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablinks");
+              for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+              }
+              document.getElementById(cityName).style.display = "block";
+              evt.currentTarget.className += " active";
+            }
+
+            document.getElementById("game_page").className = "active";
+            document.getElementById("home_page").className = "";
+            document.getElementById("map_page").className = "";
+            document.getElementById("about_page").className = "";
+            </script>
+
+
         </div>
 
         {% endblock %}
