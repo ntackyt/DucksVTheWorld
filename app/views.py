@@ -354,45 +354,6 @@ def game(request):
         }
     )
 
-def game_1(request):
-    """Renders the game 1 page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/Game 1/index.html',
-        {
-            'title':'Game 1',
-            'message':'Your application description page.',
-            'year':datetime.now().year,
-        }
-    )
-
-def game_1_editor(request):
-    """Renders the about page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/Game 1/editor.html',
-        {
-            'title':'Game 1 editor',
-            'message':'Your application description page.',
-            'year':datetime.now().year,
-        }
-    )
-
-def game_survivor(request):
-    """Renders the about page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/game_survivor.html',
-        {
-            'title':'Game 1 editor',
-            'message':'Your application description page.',
-            'year':datetime.now().year,
-        }
-    )
-
 def map(request):
     """Renders the map page."""
     assert isinstance(request, HttpRequest)
@@ -419,6 +380,7 @@ def add_pin(request):
      
      data = {
         "pin_name": pin_name,
+        "pin_user_id": request.session['localId'],
         "pin_data": {
             "pin_type_str": pin_type_str,
             "pin_type_bool": pin_type_bool,
