@@ -2,7 +2,11 @@
 
 # Introduction:
 
-# Refernces:
+# Team Members:
+Rachel Chambers, Naomi Tack, Dinora Blanco, Scott Witschey, and Shreyansh Kumar
+
+# References:
+
 
 # Installation:
 
@@ -51,14 +55,14 @@ SW_DuckiesVTheWorld
   - ...
   -manage.py
 ```
-Alternativly you can put the <i>.venv</i> folder outside of the <i>SW_DuckiesVTheWorld</i> and cd into it to then the <i>python manage.py runserver</i>
+Alternatively you can put the <i>.venv</i> folder outside of the <i>SW_DuckiesVTheWorld</i> and cd into it to then the <i>python manage.py runserver</i>
   
 6. Copy the server port and open it in either Google Chrome or Microsoft Edge.
 
 7. To deactivate the virtual environment, either close the terminal or type:
 ```
 deactivate
-``
+```
 8. To rerun the window follow steps 3, 5 and 6:
 ```
 .\venv\Scripts\activate
