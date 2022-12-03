@@ -1,29 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <title>SURVIVOR (1982 Commodore 64 game remake): Level Editor</title>
- <meta name="description" content="Design, test and play. your own &quot;Survivor&quot; levels using level creation and editing tool portion of the browser-based Survivor C64 game remake. Written as a prototype / demo of JavaScript and browser capabilities. Original Atari 2600 game by Richard Carr, (C) 1982 Synapse Software. Created for the C64 by Ewing Soft (1983.)" />
- <meta name="keywords" content="Survivor, JavaScript, HTML, DHTML, animation, CSS3, arcade, retro, space, shooter, arcade game, browser game, commodore 64" />
- <meta name="author" content="Scott Schiller" />
- <!--
- /** @license
-  *
-  * SURVIVOR: A HTML + CSS + JavaScript prototype
-  * based on the Commodore 64 version of Survivor from 1983
-  *
-  * http://schillmania.com/survivor/
-  * http://www.flickr.com/photos/schill/sets/72157628885315581/
-  *
-  * Scott Schiller wrote this beginning in December 2011, while on a plane to Hawaii.
-  * Code provided under the Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) License:
-  * http://creativecommons.org/licenses/by-nc/3.0/
-  *
-  */
- -->
- <link rel="stylesheet" href="../CSS/survivor.css" />
- <link rel="stylesheet" href="../CSS/editor.css" />
- <script src="../SCRIPTS/editor.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SURVIVOR (1982 Commodore 64 game remake): Level Editor</title>
+    <meta name="description" content="Design, test and play. your own &quot;Survivor&quot; levels using level creation and editing tool portion of the browser-based Survivor C64 game remake. Written as a prototype / demo of JavaScript and browser capabilities. Original Atari 2600 game by Richard Carr, (C) 1982 Synapse Software. Created for the C64 by Ewing Soft (1983.)" />
+    <meta name="keywords" content="Survivor, JavaScript, HTML, DHTML, animation, CSS3, arcade, retro, space, shooter, arcade game, browser game, commodore 64" />
+    <meta name="author" content="Scott Schiller" />
+    <!--
+    /** @license
+     *
+     * SURVIVOR: A HTML + CSS + JavaScript prototype
+     * based on the Commodore 64 version of Survivor from 1983
+     *
+     * http://schillmania.com/survivor/
+     * http://www.flickr.com/photos/schill/sets/72157628885315581/
+     *
+     * Scott Schiller wrote this beginning in December 2011, while on a plane to Hawaii.
+     * Code provided under the Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) License:
+     * http://creativecommons.org/licenses/by-nc/3.0/
+     *
+     */
+    -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/survivor.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/editor.css' %}" />
+    <script src="{% static 'app/scripts/editor.js' %}"></script>
 </head>
 
 <body style="overflow:visible">

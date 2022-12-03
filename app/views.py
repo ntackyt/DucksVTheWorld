@@ -361,20 +361,20 @@ def game_1(request):
         request,
         'app/Game 1/index.html',
         {
-            'title':'About',
+            'title':'Game 1',
             'message':'Your application description page.',
             'year':datetime.now().year,
         }
     )
 
-def game_survivor(request):
-    """Renders the game 1 page."""
+def game_1_editor(request):
+    """Renders the about page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/game_survivor.html',
+        'app/Game 1/editor.html',
         {
-            'title':'About',
+            'title':'Game 1 editor',
             'message':'Your application description page.',
             'year':datetime.now().year,
         }
