@@ -1,4 +1,5 @@
 import { update as updateSnake, draw as drawSnake, SNAKE_SPEED, getSnakeHead, snakeIntersection } from './snake.js'
+import { points as pts } from './snake.js'
 import { update as updateFood, draw as drawFood } from './food.js'
 
 
@@ -30,6 +31,7 @@ function main(currentTime) {
     if (gameOver){
         // For CSRF protection
         const csrftoken = getCookie('csrftoken');
+        
         // POST data to Django server using AJAX
         $.ajax({
             type: "POST",
@@ -38,7 +40,7 @@ function main(currentTime) {
                 'X-CSRFToken': csrftoken
             },
             data: {
-                "points_earned": snakeLength
+                "points_earned": pts
             },
             success: function (response) {
                 if (response.success == True) {

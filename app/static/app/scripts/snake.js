@@ -31,6 +31,9 @@ export function draw(gameBoard) {
   })
 }
 
+export function points() {return snakeLength;}
+
+
 //increase amount of snake segments
 export function expandSnake(amount) {
   newSegments += amount
