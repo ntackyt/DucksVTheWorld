@@ -342,7 +342,7 @@ def about(request):
     )
 
 def game(request):
-    """Renders the about page."""
+    """Renders the games page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -355,7 +355,7 @@ def game(request):
     )
 
 def game_1(request):
-    """Renders the about page."""
+    """Renders the game 1 page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -367,6 +367,18 @@ def game_1(request):
         }
     )
 
+def game_survivor(request):
+    """Renders the game 1 page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/game_survivor.html',
+        {
+            'title':'About',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
 
 def map(request):
     """Renders the map page."""

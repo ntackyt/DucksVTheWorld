@@ -1,0 +1,18 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="col-sm-8 text-left">
+    <!--NEED TO TEST THIS SUCKER!-->
+    <object type="text/html" data="www.schillmania.com/survivor/">
+    </object>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% load static %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+{% endblock %}

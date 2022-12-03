@@ -72,71 +72,7 @@ map.on('click', function(e){
 }
 
 
-// Get the button
-//addPin = document.form1.Add_Pin;
+// Clear the marker var so another can be added
 function clearMarker(){
-
-    // Clear out the marker
     newMarker = null;
-
-    console.log("Trying to add pin to Database");
-    /*
-    // Input the pin data into the database
-    //const db = getDatabase();
-
-    // Get References to add to the database
-    var dateCurr = new Date();
-    var pinID = dateCurr.getSeconds();
-    var name = document.getElementById("pinName").value;
-    var typeSelect = document.getElementById("pinType");
-    var type = typeSelect.options[typeSelect.selectedIndex].value;
-    var typeStr = typeSelect.options[typeSelect.selectedIndex].text;
-    var addr = document.getElementById("pinAddress").value;
-    var date = document.getElementById("pinDate").value;
-    var desc = document.getElementById("pinDesc").value;
-    var lat_entry = document.getElementById("latCoord");
-    var lng_entry = document.getElementById("lngCoord");
-    
-    console.log(pinID, name, typeStr, type, addr, date, desc, lat_entry.value, lng_entry.value);
-
-    
-
-    var msg = name + ", " + typeStr + " on " + date + "\n" + desc;
-    newMarker.bindPopup(msg).openPopup();
-
-    // Send the pin to the server.
-    // For CSRF protection
-   const csrftoken = getCookie('csrftoken');
-    // POST data to Django server using AJAX
-    $.ajax({
-        type: "POST",
-        url: "/map/",
-        headers: {
-            'X-CSRFToken': csrftoken
-        },
-        data: {
-            "pin_name": name,
-            "pin_type_str": typeStr,
-            "pin_type_bool": type,
-            "pin_addr": addr,
-            "pin_date": date,
-            "pin_desc": desc,
-            "pin_lat": lat,
-            "pin_lng": lon
-        },
-        success: function (response) {
-            if (response.success == true) {
-                alert("data successfully posted")
-            } else {
-                alert("data not successfully posted")
-            }
-        },
-        error: function (error) {
-            console.log("Error: ", error);
-        }
-    });
-    */
-    //alert("Finished adding pin to Database");
 }
-
-//function editPinOnMap(){   }
