@@ -53,7 +53,7 @@
       </div>
         <!-- How to extend this to the edge of the screen?-->
       <div class="col-sm-2 sidenav">
-        <div class="well">
+        <div class="addButt">
           <!-- <div class=""></div> -->
             <button onclick="addSelected()" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#newPinForm" aria-expanded="false" aria-controls="collapseExample">
                 Add Pin
@@ -62,6 +62,7 @@
                 <form action="/add_pin/" method="POST">
                     <!-- {% csrf_token %} -->
                     {% csrf_token %}
+                    <br><br><br>
                     <div class="form-group">
                         <label for="pinName">Pin Name</label>
                         <input type="text" class="form-control" id="pinName" placeholder="Pin Name" name="pin_name"></input>
@@ -93,7 +94,7 @@
                     <div class="form-group">
                         <label for="locationSelect">Click on the map for location!</label>
                     </div>
-                    <div id="hide">
+                    <div id="hide" class= "hide">
                         <input id="latCoord" name="pin_lat"></input>
                         <input id="lngCoord" name="pin_lng"></input>
                         <input id="pinPoints" name="pin_points"></input>
@@ -104,50 +105,12 @@
                 </form>
             </div>
         </div>
-        <div class="well">
-          <div>
-              <button onclick="editSelect()" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#editPinForm" aria-expanded="false" aria-controls="collapseExample">
-                  Edit Pin
-              </button>
-              <div class="collapse" id="editPinForm">
-                <!-- for submitt button onclick="editPinOnMap()"-->
-                  <form action="/edit_pin/" method="POST">
-                      {% csrf_token %}
-                      <div class="form-group">
-                          <label for="e-pinName">Pin Name</label>
-                          <input type="text" class="form-control" id="pinName"></input>
-                      </div>
-                      <div class="form-group">
-                          <label for="e-pinType">Type of Pin</label>
-                          <select class="form-control" id="e-pinType" name="">
-                              <option>Selected: </option>
-                              <option value="1">Cleaned Up</option>
-                              <option value="2">Needs Work</option>
-                          </select>
-                      </div>
-                      <div class="form-group">
-                          <label for="e-pinAddress">Address</label>
-                          <input type="text" class="form-control" id="e-pinAddress" placeholder="Address" name=""></input>
-                      </div>
-                      <div class="form-group">
-                          <label for="e-pinDate">Date</label>
-                          <input type="date" id="e-pinDate" name="begin" placeholder="dd-mm-yyyy" value="" min="2022-01-01" max="2300-12-31" name="">
-                      </div>
-                      <!-- need to add the date and time inputs for the pins.-->
-                      <div class="form-group">
-                          <label for="e-pinDesc">Description</label>
-                          <textarea class="form-control" id="e-pinDesc" rows="3" name=""></textarea>
-                      </div>
-                      <div class="form-group">
-                          <label for="e-locationSelect">Click on the map for location!</label>
-                      </div>
-                      <button onclick="editPinOnMap()" class="btn btn-primary" id="submitNewPin" type="button" data-target="#addPinToMap" aria-expanded="false" aria-controls="collapseExample">
-                          Submit
-                      </button>
-                  </form>
-              </div>
-          </div>
-      </div>
+        <br><br>
+        <div class="scroll" id="postsScroll">
+          
+        </div>
+
+
     </div>
     </div>
 </div>

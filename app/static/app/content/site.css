@@ -54,8 +54,8 @@ footer {
 }
 
 #profile_new_pic_button {
-    background: rgba(227, 221, 224, 0.53) !important;
-    border-color: rgba(203, 200, 202, 0.53 !important);
+    background: #e3dde087 !important;
+    border-color: rgba(203, 200, 202, 0.53) !important;
     border: 1px !important;
     border-radius: 10px !important;
     padding: 10px;
@@ -120,3 +120,31 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.addButt {
+    background-color: #8f8d8e87;
+    width: 450px;
+    height: 75px;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .scroll {
+    background-color: #8f8d8e87;
+    width: 450px;
+    height: 550px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .postDisp {
+    background-color:  #c2d7e9c0;
+    border: 2px solid black;
+    outline:#3379b7c0 10px;
+    width: 410px;
+    height: 100px;
+    text-align: center;
+    padding: 40px;
+  }

@@ -380,6 +380,19 @@ def game_1_editor(request):
         }
     )
 
+def game_survivor(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/game_survivor.html',
+        {
+            'title':'Game 1 editor',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
+
 def map(request):
     """Renders the map page."""
     assert isinstance(request, HttpRequest)

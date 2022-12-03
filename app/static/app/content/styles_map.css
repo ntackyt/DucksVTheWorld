@@ -6,30 +6,48 @@
 
 .row.content {height: 450px}
       
-.sidenav {
-  padding-top: 20px;
-  background-color: #f1f1f1;
-  height: 100%;
-}
-      
 footer {
   background-color: #555;
   color: white;
   padding: 15px;
 }
       
-@media screen and (max-width: 767px) {
-.sidenav {
-  height: auto;
-  padding: 15px;
-  }
-  .row.content {height:auto;} 
-}
+
 
 #map { 
   height: 600px; 
 }
 
-#hide {
+.hide {
   display: none;
+}
+
+
+.addButt {
+  background-color: #8f8d8e87;
+  top: 50px;
+  width: 450px;
+  height: 75px;
+  text-align: center;
+  padding: 20px;
+}
+
+.scroll {
+  background-color: #8f8d8e87;
+  width: 450px;
+  height: 550px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.postDisp {
+  background-color:  #c2d7e9c0;
+  border: 2px solid black;
+  outline:#3379b7c0 solid 5px;
+  width: 400px;
+  height: 100px;
+  text-align: center;
+  padding: 40px;
 }

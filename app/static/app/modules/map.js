@@ -24,8 +24,15 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function loadmap() {
     for (pin in curr_pins){
+        // Create Marker
         const popupTxt =  '<h1 style="font-size:20px">' + curr_pins[pin].pin_name + '</h1>'
-        marker = new L.Marker([curr_pins[pin].pin_data.pin_lat, curr_pins[pin].pin_data.pin_lng],).addTo(map).bindPopup(popupTxt);        
+        marker = new L.Marker([curr_pins[pin].pin_data.pin_lat, curr_pins[pin].pin_data.pin_lng],).addTo(map).bindPopup(popupTxt);  
+        // Create Post    
+        const newPost = document.createElement('div');  
+        newPost.classList.add('postDisp');
+        newPost.textContent = curr_pins[pin].pin_name;
+        document.getElementById('postsScroll').append(newPost);
+        document.getElementById('postsScroll').append(document.createElement('br'));
     }
 }
 loadmap();
@@ -51,12 +58,15 @@ map.on('click', function(e){
   });
 
   function addSelected(){
+
     if(addOpen == false){
         addOpen = true;
         addOption = true; // The add button has been selected.
+        document.getElementById('postsScroll').className = "hide";
     }
     else{
         addOpen = addOption = false;
+        document.getElementById('postsScroll').className = "scroll";
     }
   }
 
