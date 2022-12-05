@@ -38,6 +38,11 @@
     height: 600px;
 }
 
+/* Give space around picture on user profile page */
+#profile_prof_pic_content {
+    margin: 15px;
+}
+
 #profile {
     text-align: left;
     margin: 5%;

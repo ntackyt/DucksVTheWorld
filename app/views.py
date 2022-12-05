@@ -215,7 +215,8 @@ def postsignup(request):
             "last_name": last_name,
             "num_ducks": 0,
             "num_points": 0,
-            "prof_desc": ""
+            "prof_desc": "",
+            "prof_pic": storage.child("prof_pics/default_prof_pic.jpg").get_url(None)
             }
      }
      #print(user['idToken'])
@@ -273,8 +274,13 @@ def profile(request):
 
 
     assert isinstance(request, HttpRequest)
-    
-    pic_url = storage.child("prof_pics/realistic_duck.jpg").get_url(None)
+
+    # To get the push id for the current user, as that is what the user data is filed under in JSON format
+    current_user_push_id = request.session['user_push_id']
+
+    # Save file to local machine so it can be uploaded to Firebase
+    error_msg = ""
+    success = True
 
     # If we got an POST request from an ajax command
     # i.e., if a user edited an attribute on the profile page
@@ -286,11 +292,6 @@ def profile(request):
         new_value = request.POST.get("new_value")
         old_value = request.POST.get("old_value")
 
-        # To get the push id for the current user, as that is what the user data is filed under in JSON format
-        current_user_push_id = request.session['user_push_id']
-    
-        error_msg = ""
-        success = True
         try:
             db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({attribute_type: new_value})  
         except Exception as e:
@@ -308,24 +309,40 @@ def profile(request):
     elif request.method == 'POST':
         # If we are getting a profile pic
         # https://dev.to/mdrhmn/django-firebase-cloud-storage-331p
-        print("prof_pic")
+        
         # Get new profile picture
         file = request.FILES.get("file")
         
         # Make sure file is a picture 
 
+        # Add user id to end of file to prevent same file names overwriting other users pictures
+        new_file_name = file.name + request.session['localId']
+        
+        try:
+            default_storage.save(new_file_name, file)
+            # Upload profile pic to Firebase
+            storage.child("prof_pics/" + new_file_name).put(new_file_name, request.session['localId'])
+            # Delete file from local machine
+            default_storage.delete(new_file_name)
 
-        # Save file to local machine so it can be uploaded to Firebase
-        file_save = default_storage.save(file.name, file)
-        # Upload profile pic to Firebase
-        storage.child("prof_pics/" + file.name).put(file.name)
-        # Delete file from local machine
-        delete = default_storage.delete(file.name)
-        print()
-        #messages.success(request, "File upload in Firebase Storage successful")
-        success = True
+            
+        except Exception as e:
+            error_msg = e.args[1]
+            success = False
 
-        return HttpResponse(json.dumps({'success': success}), content_type="application/json");
+        # Get the url of the new picture
+        new_url = storage.child("prof_pics/" + new_file_name).get_url(request.session['localId'])
+        # Update profile pic url in database
+        db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({"prof_pic": new_url})  
+
+        # Update session first name value if successful
+        if (success == True):
+            request.session['current_user_data']["prof_pic"] = new_url
+            # Tells Django to that we made a change to a session variable and to update it
+            request.session.modified = True
+
+        # Return profile with new data
+        return render(request, "app/profile.html", {'success':True, 'error_msg':""})
     return render(request, "app/profile.html", {'success':True, 'error_msg':""})
 
 
