@@ -22,6 +22,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+types = ["Cleaned Up", "Needs Work"]
+
 function loadmap() {
     for (pin in curr_pins){
         // Create Marker
@@ -30,14 +32,23 @@ function loadmap() {
         // Create Post    
         const newPost = document.createElement('div');  
         newPost.classList.add('postDisp');
-        const postText = '<h1 style="font-size:20px">'+curr_pins[pin].pin_name + '</h1>\n' +curr_pins[pin].pin_data.pin_desc +'\n';
-        newPost.textContent = postText;
+        newPost.id=pin
+        newPost.setAttribute("post_lat", curr_pins[pin].pin_data.pin_lat)
+        newPost.setAttribute("post_lng", curr_pins[pin].pin_data.pin_lng)
+        var index = parseInt(curr_pins[pin].pin_data.pin_type_bool)
+        let pin_type = types[index - 1]
+        let postText = `<h1 style="font-size:20px"> ${pin_type}: ${curr_pins[pin].pin_name}</h2> 
+                        ${curr_pins[pin].pin_data.pin_date}  @ ${curr_pins[pin].pin_data.pin_addr} <br> 
+                        ${curr_pins[pin].pin_data.pin_desc} <br> 
+                        <button onclick="gotoPin(${pin})">See on map</button>`; // Make the button Id the same as the div id to get the attributes - could set buttons attributes?
+        newPost.innerHTML = postText;
+        console.log(postText)
         document.getElementById('postsScroll').append(newPost);
         document.getElementById('postsScroll').append(document.createElement('br'));
     }
 }
 loadmap();
-
+// line 39 and 40 need the pin id so link the correct post to the pin
 
 var lat;
 var lng;
@@ -86,4 +97,10 @@ map.on('click', function(e){
 // Clear the marker var so another can be added
 function clearMarker(){
     newMarker = null;
+}
+
+
+function gotoPin(e){
+    postDeets = document.getElementById(e).attributes
+    map.flyTo(new L.LatLng(postDeets[2].value, postDeets[3].value));
 }

@@ -400,8 +400,7 @@ def map(request):
 
 def add_pin(request):
      pin_name = request.POST.get('pin_name')
-     pin_type_str = request.POST.get('pin_type_str')
-     pin_type_bool = request.POST.get('pin_type_bool')
+     pin_type_bool = request.POST.get('pin_type_str')
      pin_addr = request.POST.get('pin_addr')
      pin_date = request.POST.get('pin_date')
      pin_desc = request.POST.get('pin_desc')
@@ -412,8 +411,14 @@ def add_pin(request):
      trash_pic2 = request.POST.get('trash_pic2')
 
     # get the old point and update them
-     current_user_push_id = request.session['user_push_id']
-     current_user_local_id = request.session['localId']
+     try:
+        current_user_push_id = request.session['user_push_id']
+        current_user_local_id = request.session['localId']
+     except Exception as e:
+        error_msg = e.args[1]
+        print(error_msg)
+        return redirect("map")
+
      old_points = db.child("Data").child("Users").order_by_child("user_id").equal_to(current_user_local_id).get()
      old_points_list = list(old_points.val().items())[0]
      print(old_points_list[1]['user_data']['num_points'])
@@ -431,7 +436,6 @@ def add_pin(request):
         "pin_name": pin_name,
         "pin_user_id": request.session['localId'],
         "pin_data": {
-            "pin_type_str": pin_type_str,
             "pin_type_bool": pin_type_bool,
             "pin_addr": pin_addr,
             "pin_date": pin_date,

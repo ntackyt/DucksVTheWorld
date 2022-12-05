@@ -47,7 +47,7 @@ footer {
   border: 2px solid black;
   outline:#3379b7c0 solid 5px;
   width: 400px;
-  height: 100px;
-  text-align: center;
-  padding: 40px;
+  height: 150px;
+  text-align: left;
+  padding: 20px;
 }

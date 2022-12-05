@@ -34,9 +34,7 @@
                     <li class="active"><a href="{% url 'map' %}">Map</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
+        {% include 'app/loginpartial.html' %}
       </div>
     </div>
   </nav>
@@ -80,7 +78,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pinDate">Date</label>
-                        <input type="date" id="pinDate" name="begin" placeholder="dd-mm-yyyy" value="" min="2022-01-01" max="2030-12-31" name="pin_date">
+                        <input type="date" id="pinDate" name="pin_date" placeholder="dd-mm-yyyy" value="" min="2022-01-01" max="2030-12-31">
                     </div>
                     <!-- need to add the date and time inputs for the pins.-->
                     <div class="form-group">
