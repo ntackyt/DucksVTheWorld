@@ -24,7 +24,7 @@ footer {
 
 
 .addButt {
-  background-color: #8f8d8e87;
+  background-color: #005a2a;
   top: 50px;
   width: 450px;
   height: 75px;
@@ -33,7 +33,7 @@ footer {
 }
 
 .scroll {
-  background-color: #8f8d8e87;
+  background-color: #005a2a;
   width: 450px;
   height: 550px;
   overflow-x: hidden;
@@ -43,9 +43,9 @@ footer {
 }
 
 .postDisp {
-  background-color:  #c2d7e9c0;
+  background-color:  #c9e9ab;
   border: 2px solid black;
-  outline:#3379b7c0 solid 5px;
+  outline:#ea9e00 solid 5px;
   width: 400px;
   height: 150px;
   text-align: left;

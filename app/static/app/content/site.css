@@ -9,18 +9,18 @@
 
 .sidenav {
     padding-top: 20px;
-    background-color: #f1f1f1;
-    height: 100%;
+    background-color: #c9e9ab;
+    height: 150%;
 }
 
 .footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #555;
+    background-color: #005a2a;
     color: white;
     padding: 15px;
-    bottom: 0px;
+    bottom: 0px
 }
 
 @media screen and (max-width: 767px) {

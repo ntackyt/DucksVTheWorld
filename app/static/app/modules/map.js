@@ -40,7 +40,7 @@ function loadmap() {
         let postText = `<h1 style="font-size:20px"> ${pin_type}: ${curr_pins[pin].pin_name}</h2> 
                         ${curr_pins[pin].pin_data.pin_date}  @ ${curr_pins[pin].pin_data.pin_addr} <br> 
                         ${curr_pins[pin].pin_data.pin_desc} <br> 
-                        <button onclick="gotoPin(${pin})">See on map</button>`; // Make the button Id the same as the div id to get the attributes - could set buttons attributes?
+                        <button type="button" onclick="gotoPin(${pin})">See on map</button>`; // Make the button Id the same as the div id to get the attributes - could set buttons attributes?
         newPost.innerHTML = postText;
         console.log(postText)
         document.getElementById('postsScroll').append(newPost);
