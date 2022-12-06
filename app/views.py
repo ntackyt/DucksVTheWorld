@@ -20,9 +20,21 @@ import re
 # For parsing database queries
 import json
 
+# Testing to see if databse items match local values in the session
+def check_user_data(request, user_id):
+    user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user_id).get()
+    # Put results in list format
+    user_data = list(user_db_data.val().items())[0]
+
+    for key, value in user_data[1]['user_data'].items():
+        value_name = key
+        local_value = request.session['current_user_data'][value_name]
+        if (local_value != value):
+            return False
+    return True
+
+
 # Variables to authenticate firebase
-
-
 firebaseConfig = {
   "apiKey": "AIzaSyAEAeGmrnWjANDIdSItht4fsJI2AtzE7oQ",
   "authDomain": "ducksvstheworld-d7723.firebaseapp.com",
@@ -230,6 +242,10 @@ def show_user_profile(request, user_id):
 def profile(request):
     assert isinstance(request, HttpRequest)
 
+    isUpdated = check_user_data(request, request.session['localId'])
+    assert isUpdated == True
+
+
     # To get the push id for the current user, as that is what the user data is filed under in JSON format
     current_user_push_id = request.session['user_push_id']
 
@@ -433,3 +449,5 @@ def add_pin(request):
      }
      results = db.child("Data").child("Posts").push(data)
      return redirect("map")
+
+
