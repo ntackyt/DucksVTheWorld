@@ -53,7 +53,7 @@ function main(currentTime) {
                 console.log("Error: ", error);
             }
         });
-        if (confirm('you lose :( Press Ok to restart!')){
+        if (confirm('You got '+pts()+' points :) Press Ok to restart!')){
             window.location = '/game'
         }
         return
