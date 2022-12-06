@@ -48,8 +48,6 @@
         </span>
     </p>
 
-    <p><span class="profile_label">Ducks:</span> {{ request.session.current_user_data.num_ducks }} </p>
-
     <p><span class="profile_label">Points:</span> {{ request.session.current_user_data.num_points }} </p>
 
     <p id="profile_prof_desc_content">
@@ -58,7 +56,11 @@
         <button onclick="change_user_attribute('prof_desc')" id="profile_prof_desc_check" class="profile_hidden"><span class="glyphicon glyphicon-check"></span></button>
     <p id="profile_prof_desc_display">
         <span id="profile_prof_desc_value">
+            {% if request.session.current_user_data.prof_desc|length < 1 %}
+            You don't have a user description. Click the pencil icon to create one!
+            {% else %}
             {{ request.session.current_user_data.prof_desc }}
+            {% endif %}
         </span>
     </p>
     <span class="profile_hidden" id="profile_prof_desc_edit">
