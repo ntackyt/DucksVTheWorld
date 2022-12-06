@@ -37,7 +37,8 @@ function loadMap() {
         newPost.setAttribute("post_lng", curr_pins[pin].pin_data.pin_lng)
         var index = parseInt(curr_pins[pin].pin_data.pin_type_bool)
         let pin_type = types[index - 1]
-        let postText = `<h1 style="font-size:20px"> ${pin_type}: ${curr_pins[pin].pin_name}</h2> 
+        let postText = `<h1 style="font-size:20px"> ${pin_type}: ${curr_pins[pin].pin_name}</h1>
+                        <img src="${curr_pins[pin].user_prof_pic}"><a href="/show_user_profile/${curr_pins[pin].pin_user_id}">${curr_pins[pin].user_first_name} ${curr_pins[pin].user_last_name}</a><br>
                         ${curr_pins[pin].pin_data.pin_date}  @ ${curr_pins[pin].pin_data.pin_addr} <br> 
                         ${curr_pins[pin].pin_data.pin_desc} <br> 
                         <button type="button" onclick="gotoPin(${pin})">See on map</button>`; // Make the button Id the same as the div id to get the attributes - could set buttons attributes?
