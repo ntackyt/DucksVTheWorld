@@ -24,7 +24,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 types = ["Cleaned Up", "Needs Work"]
 
-function loadmap() {
+function loadMap() {
     for (pin in curr_pins){
         // Create Marker
         const popupTxt =  '<h1 style="font-size:20px">' + curr_pins[pin].pin_name + '</h1>'
@@ -47,8 +47,7 @@ function loadmap() {
         document.getElementById('postsScroll').append(document.createElement('br'));
     }
 }
-loadmap();
-// line 39 and 40 need the pin id so link the correct post to the pin
+loadMap();
 
 var lat;
 var lng;
