@@ -38,6 +38,11 @@
     height: 600px;
 }
 
+#whatwedo {
+    width: 50%;
+    margin: auto;
+}
+
 /* Give space around picture on user profile page */
 #profile_prof_pic_content {
     margin: 15px;

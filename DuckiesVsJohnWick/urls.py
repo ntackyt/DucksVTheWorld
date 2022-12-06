@@ -20,12 +20,9 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('postsignup/', views.postsignup, name='postsignup'),
     path('add_pin/', views.add_pin, name='add_pin'),
-    #path('logout/', LogoutView.as_view(next_page=''), name='logout'),
     path('logout/', views.logout, name='logout'),
     path('profile/', views.profile, name='profile'),
-    #path(r'^show_user_profile/(?P<user_id>\w+)/$', views.show_user_profile, name = "show_user_profile"),
-    path(r'^show_user_profile/(?P<user_id>\w+)/$', views.show_user_profile, name="show_user_profile"),
-    path(r'^show_user_profile/$', views.show_user_profile, name="show_user_profile"),
+    path('whatwedo/', views.whatwedo, name='whatwedo'),
     path('show_user_profile/<str:user_id>/', views.show_user_profile, name='show_user_profile'),
     
     path('admin/', admin.site.urls),

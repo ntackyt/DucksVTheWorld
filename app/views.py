@@ -331,6 +331,19 @@ def about(request):
         }
     )
 
+def whatwedo(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/whatwedo.html',
+        {
+            'title':'What We Do',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
+
 def game(request):
     """Renders the games page."""
     assert isinstance(request, HttpRequest)
