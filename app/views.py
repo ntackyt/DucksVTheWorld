@@ -20,9 +20,21 @@ import re
 # For parsing database queries
 import json
 
+# Testing to see if databse items match local values in the session
+def check_user_data(request, user_id):
+    user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user_id).get()
+    # Put results in list format
+    user_data = list(user_db_data.val().items())[0]
+
+    for key, value in user_data[1]['user_data'].items():
+        value_name = key
+        local_value = request.session['current_user_data'][value_name]
+        if (local_value != value):
+            return False
+    return True
+
+
 # Variables to authenticate firebase
-
-
 firebaseConfig = {
   "apiKey": "AIzaSyAEAeGmrnWjANDIdSItht4fsJI2AtzE7oQ",
   "authDomain": "ducksvstheworld-d7723.firebaseapp.com",
@@ -54,22 +66,6 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     
-    #accessing our firebase data and storing it in a variable
-    '''userid = database.child('Data').child('id').get().val()
-    #username = database.child('Data').child('username').get().val()
-    
-   # print("********************************************************")
-    print(userid)
-    print(username)
-
-    context = {
-        'id':userid,
-        'username':username,
-        }
-
-    print("user is anonomys")
-    print(request.user.is_anonymous)
-    '''
     return render(
         request,
         'app/home.html',
@@ -105,9 +101,6 @@ def postlogin(request):
         # if there is no error then signin the user with given email and password
         # user=authe.sign_in_with_email_and_password(email,pasw)
         user = auth.sign_in_with_email_and_password(email, password)
-        print("email", email, "password", password)
-        print(user)
-        print(auth.current_user)
 
     except:
         message="That email and password is invalid. Please submit a correct username and password."
@@ -117,7 +110,6 @@ def postlogin(request):
     session_id=user['idToken']
     request.session['uid']=str(session_id)
    
-
     # get current user's data from database
     user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user['localId']).get()
 
@@ -126,9 +118,7 @@ def postlogin(request):
         message="No user data in database. Contact administrator at ducksvstheworld@gmail.com"
         return render(request,"app/login.html", {'message':message, 'current_user': auth.current_user, "form":form})
     user_data = list(user_db_data.val().items())[0]
-    print("first item: ", user_data[0])
-    print("first item 1[userdata]", user_data[1]['user_data'])
-    print("local id", user['localId'])
+    
     # set user data to current session
     request.session['user_push_id'] = user_data[0]
     request.session['localId'] = user['localId']
@@ -136,18 +126,6 @@ def postlogin(request):
     request.session['current_user'] = auth.current_user
     request.session['current_user_data'] = user_data[1]['user_data']
 
-
-    '''
-    accountinfo = auth.get_account_info(user['idToken'])
-    print("ACCCCOUNT INFOOOOOOOOOOOOOOOOOO")
-    print(accountinfo)
-
-    # get user data from database
-    user_data = db.child("Data").child("Users").child(user["localId"]).get()
-    print("USER DATAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    print(user_data.val()["num_ducks"])
-    user_data_dict = user_data.val()\
-'''
 
     return render(request,"app/home.html", {"email":email, 'current_user': auth.current_user})
  
@@ -212,25 +190,14 @@ def postsignup(request):
             "prof_pic": storage.child("prof_pics/default_prof_pic.jpg").get_url(None)
             }
      }
-     #print(user['idToken'])
-     #print(user['localId'])
+     
      results = db.child("Data").child("Users").push(data)
-     '''
-     results2 = db.child("Data").child("Users").get()
-     for user in results2.each():
-        print("KEY:", user.key()) # Morty
-        print("VALUE:", user.val()) # {name": "Mortimer 'Morty' Smith"}
-     # print(results)
-
-     get_current_user = db.child("Data").child("Users").order_by_child("user_id").equal_to("wxfnMRylVtMjI3rsBvI3i2unO7I2").get()
-     print(get_current_user.val())
-     '''
+     
      # If user was created successfully, redirect to login page
      return redirect("login")
 
 def logout(request):
     try:
-        print("LOGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
         del request.session['uid']
         del request.session['']
         del request.session['user_push_id']
@@ -241,12 +208,12 @@ def logout(request):
         auth.current_user = None
     except:
         pass
-    #return render(request,"app/login.html")
+
     return redirect("login")
 
 def contact(request):
     """Renders the contact page."""
-    print("CONTACCCCCCCCCCCCCCCCCCCTTTTTTTTTTTTTTT")
+
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -274,6 +241,10 @@ def show_user_profile(request, user_id):
 
 def profile(request):
     assert isinstance(request, HttpRequest)
+
+    isUpdated = check_user_data(request, request.session['localId'])
+    assert isUpdated == True
+
 
     # To get the push id for the current user, as that is what the user data is filed under in JSON format
     current_user_push_id = request.session['user_push_id']
@@ -360,6 +331,19 @@ def about(request):
         }
     )
 
+def whatwedo(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/whatwedo.html',
+        {
+            'title':'What We Do',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
+
 def game(request):
     """Renders the games page."""
     assert isinstance(request, HttpRequest)
@@ -376,10 +360,8 @@ def game(request):
         # If we are getting an ajax request, then we are just getting text values
         old_points = db.child("Data").child("Users").order_by_child("user_id").equal_to(current_user_local_id).get()
         old_points_list = list(old_points.val().items())[0]
-        print(old_points_list[1]['user_data']['num_points'])
-        print(points_earned)
         points_earned = int(points_earned) + int(old_points_list[1]['user_data']['num_points'])
-        print(points_earned)
+
         error_msg = ""
         success = True
         try:
@@ -387,7 +369,7 @@ def game(request):
         except Exception as e:
             error_msg = e.args[1]
             success = False
-        print(success)
+
         # Update session first name value if successful
         if (success == True):
             request.session['current_user_data']['num_points'] = points_earned
@@ -450,13 +432,11 @@ def add_pin(request):
         current_user_local_id = request.session['localId']
      except Exception as e:
         error_msg = e.args[1]
-        print(error_msg)
         return redirect("map")
 
      old_points = db.child("Data").child("Users").order_by_child("user_id").equal_to(current_user_local_id).get()
      old_points_list = list(old_points.val().items())[0]
-     print(old_points_list[1]['user_data']['num_points'])
-     print(pin_points)
+
      user_points = int(pin_points) + int(old_points_list[1]['user_data']['num_points'])
      success = True
      try:
@@ -464,7 +444,6 @@ def add_pin(request):
      except Exception as e:
         error_msg = e.args[1]
         success = False
-     print(success)
 
      data = {
         "pin_name": pin_name,
@@ -483,3 +462,5 @@ def add_pin(request):
      }
      results = db.child("Data").child("Posts").push(data)
      return redirect("map")
+
+
