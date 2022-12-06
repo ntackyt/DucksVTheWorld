@@ -101,8 +101,6 @@ def postlogin(request):
     password=request.POST.get('password')
 
     form = BootstrapAuthenticationForm()
-    print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
-    print(email, password)
     try:
         # if there is no error then signin the user with given email and password
         # user=authe.sign_in_with_email_and_password(email,pasw)
@@ -122,11 +120,6 @@ def postlogin(request):
 
     # get current user's data from database
     user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user['localId']).get()
-    for user1 in user_db_data.each():
-        print("KEY:", user1.key()) # Morty
-        print("VALUE:", user1.val()) # {name": "Mortimer 'Morty' Smith"}
-        print(type(user1.val()))
-        print(dict(user1.val()))
 
     # if user data is not in database, then throw error message
     if not user_db_data.val():
@@ -265,14 +258,21 @@ def contact(request):
         }
     )
 
+def show_user_profile(request, user_id):
+    assert isinstance(request, HttpRequest)
+
+    # Get data from user to display on profile page
+    user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user_id).get()
+
+    # Put results in list format
+    user_data = list(user_db_data.val().items())[0]
+
+    return render(request, "app/show_user_profile.html", {'user_data':user_data[1]['user_data']})
+
+
+
+
 def profile(request):
-    results2 = db.child("Data").child("Users").get()
-    for user in results2.each():
-        print("KEY:", user.key()) # Morty
-        print("VALUE:", user.val()) # {name": "Mortimer 'Morty' Smith"}
-     # print(results)
-
-
     assert isinstance(request, HttpRequest)
 
     # To get the push id for the current user, as that is what the user data is filed under in JSON format
@@ -407,10 +407,27 @@ def game(request):
 def map(request):
     """Renders the map page."""
     assert isinstance(request, HttpRequest)
+
     user_db_pins = db.child("Data").child("Posts").get() #returns pyrebase object
+   
+    
     pin_data = [] # python list 
+    pin_data_w_user = []
     for pin_id in user_db_pins.each():
-        pin_data.append(pin_id.val())
+        # Get user data for the user associated with this pin
+        pin_user_id = pin_id.val()["pin_user_id"]
+        user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(pin_user_id).get()
+        user_data = list(user_db_data.val().items())[0]
+
+        # Add this user data to the dictionary to send to the webpage
+        pin_data_w_user = pin_id.val()
+        pin_data_w_user['user_first_name'] = user_data[1]['user_data']['first_name']
+        pin_data_w_user['user_last_name'] = user_data[1]['user_data']['last_name']
+        pin_data_w_user['user_prof_pic'] = user_data[1]['user_data']['prof_pic']
+
+        # Append dictionary to list of dictionaries holding lists of pins
+        pin_data.append(pin_data_w_user)
+ 
     pins_json = json.dumps(pin_data) # convert to json format
     return render(request, 'app/map.html', {'curr_pins' : pins_json})
     

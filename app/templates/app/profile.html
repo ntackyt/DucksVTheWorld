@@ -4,7 +4,6 @@
 
 {% if request.session.uid %}
 
-
 <div id="profile">
     <h2 id="profile_greeting">Hello, {{ request.session.current_user_data.first_name }}!</h2>
 
@@ -63,6 +62,7 @@
             {% endif %}
         </span>
     </p>
+    <p>
     <span class="profile_hidden" id="profile_prof_desc_edit">
         <textarea id="profile_prof_desc_input">{{ request.session.current_user_data.prof_desc }}</textarea>
     </span>

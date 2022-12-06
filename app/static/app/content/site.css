@@ -153,9 +153,9 @@ input[type="checkbox"].input-validation-error {
     border: 2px solid black;
     outline:#3379b7c0 10px;
     width: 410px;
-    height: 100px;
+    height: 250px;
     text-align: center;
-    padding: 40px;
+    padding-left: 40px;
   }
 
 

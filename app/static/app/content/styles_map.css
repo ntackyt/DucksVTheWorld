@@ -47,7 +47,15 @@ footer {
   border: 2px solid black;
   outline:#ea9e00 solid 5px;
   width: 400px;
-  height: 200px;
   text-align: left;
   padding: 5px;
+}
+
+.postDisp img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 125px;
+    -webkit-border-radius: 125px;
+    -moz-border-radius: 125px;
 }

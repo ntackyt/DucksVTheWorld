@@ -1,0 +1,38 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+{% if request.session.uid %}
+
+
+<div id="profile">
+   <div>
+        <span id="profile_prof_pic_content">
+            <img id="prof_pic" src="{{ user_data.prof_pic }}" width="200" height="200" />
+        </span>
+        <span>
+            <h1>{{ user_data.first_name }} {{ user_data.last_name }}</h1>
+        </span>
+    </div>
+   <div>
+       <p>Points: {{ user_data.num_points }}</p>
+       <p>
+       {% if user_data.prof_desc|length < 1 %}
+       This user doesn't have a description yet. I'm sure they're still a cool person though!
+       {% else %}
+       {{ user_data.prof_desc }}
+       {% endif %}
+       </p>
+   </div>
+</div>
+{% else %}
+<h2>You are not signed in. <a href="/login/">Log in</a> to access this user profile.</h2>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+
+{% load static %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+{% endblock %}
