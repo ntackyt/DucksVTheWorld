@@ -228,6 +228,12 @@ def contact(request):
 def show_user_profile(request, user_id):
     assert isinstance(request, HttpRequest)
 
+    print(user_id)
+    print(request.session['localId'])
+    if (user_id == request.session['localId']):
+        print("they're equal")
+        return render(request, "app/profile.html", {'success':True, 'error_msg':""})
+
     # Get data from user to display on profile page
     user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user_id).get()
 
