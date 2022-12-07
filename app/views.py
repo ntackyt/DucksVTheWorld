@@ -285,6 +285,10 @@ def profile(request):
         file = request.FILES.get("file")
         
         # Make sure file is a picture 
+        file_extension = file.name.split('.')[-1]  
+        if (file_extension != "jpg" and file_extension != "png" and file_extension != "jpeg"):
+            error_msg = "You must upload an image file. Only png, jpg, and jpeg are allowed."
+            return render(request, "app/profile.html", {'false':True, 'error_msg':error_msg})
 
         # Add user id to end of file to prevent same file names overwriting other users pictures
         new_file_name = file.name + request.session['localId']

@@ -15,12 +15,12 @@
         <div class="profile_hidden" id="profile_prof_pic_edit">
             <form enctype="multipart/form-data" action="/profile/" method="POST">
                 {% csrf_token %}
-                <button type="submit" id="profile_new_pic_button" accept=".jpg, .jpeg, .png">upload image</button>
+                <button type="submit" id="profile_new_pic_button" accept="image/png,image/jpg,image/jpeg">upload image</button>
                 <input type="file" id="new_prof_pic" name="file" required />
             </form>
 
         </div>
-        {{ error_msg }}
+        <span style="color: red;">{{ error_msg }}</span>
     </div>
 
 
