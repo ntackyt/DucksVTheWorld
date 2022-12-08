@@ -248,9 +248,8 @@ def show_user_profile(request, user_id):
 def profile(request):
     assert isinstance(request, HttpRequest)
 
-    isUpdated = check_user_data(request, request.session['localId'])
-    assert isUpdated == True
-
+    #isUpdated = check_user_data(request, request.session['localId'])
+    #assert isUpdated == True
 
     # To get the push id for the current user, as that is what the user data is filed under in JSON format
     current_user_push_id = request.session['user_push_id']
@@ -292,9 +291,10 @@ def profile(request):
         
         # Make sure file is a picture 
         file_extension = file.name.split('.')[-1]  
+
         if (file_extension != "jpg" and file_extension != "png" and file_extension != "jpeg"):
             error_msg = "You must upload an image file. Only png, jpg, and jpeg are allowed."
-            return render(request, "app/profile.html", {'false':True, 'error_msg':error_msg})
+            return render(request, "app/profile.html", {'success':False, 'error_msg':error_msg})
 
         # Add user id to end of file to prevent same file names overwriting other users pictures
         new_file_name = file.name + request.session['localId']
@@ -447,13 +447,21 @@ def add_pin(request):
      old_points = db.child("Data").child("Users").order_by_child("user_id").equal_to(current_user_local_id).get()
      old_points_list = list(old_points.val().items())[0]
 
-     user_points = int(pin_points) + int(old_points_list[1]['user_data']['num_points'])
+     if pin_points == "":
+         pin_points = 400
      success = True
+     
      try:
         db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({"num_points": user_points})  
      except Exception as e:
         error_msg = e.args[1]
         success = False
+
+     # If we successfully added the user points, then change local variable as well
+     if success == True:
+         request.session['current_user_data']['num_points'] = user_points
+         print(request.session.modified)
+         request.session.modified = True
 
      data = {
         "pin_name": pin_name,

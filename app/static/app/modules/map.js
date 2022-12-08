@@ -87,9 +87,9 @@ map.on('click', function(e){
     var type = typeSelect.options[typeSelect.selectedIndex].value;
     var points = document.getElementById("pinPoints");
     if(type == 1){
-        points.value = 60;
+        points.value = 600;
     }
-    else { points.value = 40; }
+    else { points.value = 400; }
     console.log(points.value);
 }
 
