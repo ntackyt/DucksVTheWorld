@@ -65,18 +65,18 @@
                         <br><br><br>
                         <div class="form-group">
                             <label for="pinName">Pin Name</label>
-                            <input type="text" class="form-control" id="pinName" placeholder="Pin Name" name="pin_name"></input>
+                            <input type="text" class="form-control" id="pinName" placeholder="Pin Name" name="pin_name" required>
                         </div>
                         <div class="form-group">
                             <label for="pinType">Type of Pin</label>
-                            <select class="form-control" id="pinType" name="pin_type_str" placeholder="Select" onclick="assignPoints()">
+                            <select class="form-control" id="pinType" name="pin_type_str" placeholder="Select" onclick="assignPoints()" required>
                                 <option value="1">Cleaned Up</option>
                                 <option value="2">Needs Work</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="pinAddress">Address</label>
-                            <input type="text" class="form-control" id="pinAddress" placeholder="Address" name="pin_addr"></input>
+                            <input type="text" class="form-control" id="pinAddress" placeholder="Address" name="pin_addr" required>
                         </div>
                         <div class="form-group">
                             <label for="pinDate">Date</label>
@@ -85,7 +85,7 @@
                         <!-- need to add the date and time inputs for the pins.-->
                         <div class="form-group">
                             <label for="pinDesc">Description</label>
-                            <textarea class="form-control" id="pinDesc" rows="3" name="pin_desc"></textarea>
+                            <textarea class="form-control" id="pinDesc" rows="3" name="pin_desc" required></textarea>
                         </div>
                         <div class="form-group">
                             <input type="file" id="file1" name="trash_pic1">
