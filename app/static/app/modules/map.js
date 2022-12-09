@@ -23,13 +23,14 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 types = ["Cleaned Up", "Needs Work"]
+const markers =[];
 
 function loadMap() {
     for (pin in curr_pins){
         // Create Marker
         const popupTxt =  '<h1 style="font-size:20px">' + curr_pins[pin].pin_name + '</h1>'
         marker = new L.Marker([curr_pins[pin].pin_data.pin_lat, curr_pins[pin].pin_data.pin_lng],).addTo(map).bindPopup(popupTxt);  
-        
+        markers.push(marker);
         // Create Post    
         const newPost = document.createElement('div');  
         newPost.classList.add('postDisp');
@@ -83,6 +84,7 @@ map.on('click', function(e){
     }
   }
 
+  // When the functions type of pin is selected then assign the points - error checked in the views.py
   function assignPoints(){
     var typeSelect = document.getElementById("pinType");
     var type = typeSelect.options[typeSelect.selectedIndex].value;
@@ -103,5 +105,6 @@ function clearMarker(){
 
 function gotoPin(e){
     postDeets = document.getElementById(e).attributes
-    map.flyTo(new L.LatLng(postDeets[2].value, postDeets[3].value));
+    map.flyTo(new L.LatLng(postDeets[2].value, postDeets[3].value)); // got to the pin on the button click
+    markers[postDeets[1].value].openPopup(); // adds the pop up to the selected button
 }

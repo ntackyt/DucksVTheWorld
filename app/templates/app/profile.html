@@ -4,7 +4,7 @@
 
 {% if request.session.uid %}
 
-<div id="profile">
+<div id="profile" class="profile_info">
     <h2 id="profile_greeting">Hello, {{ request.session.current_user_data.first_name }}!</h2>
 
     <div id="profile_prof_pic_content">
@@ -68,6 +68,14 @@
     </span>
     </p>
 </div>
+<br>
+<div id="user_posts">
+    <div class="scroll_profile" id="user_posts_scroll">
+        <!-- THIS IS WHERE YOU CAN PUT THE POSTS. -->
+        <p> THIS GOES IN THE SCROLL FOR VISUAL TESTING ^_^</p>
+    </div>
+</div>
+
 {% else %}
 <h2>You are not signed in. <a href="/login/">Log in</a> to access your profile.</h2>
 {% endif %}
