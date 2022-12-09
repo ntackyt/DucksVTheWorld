@@ -29,6 +29,7 @@ function loadMap() {
         // Create Marker
         const popupTxt =  '<h1 style="font-size:20px">' + curr_pins[pin].pin_name + '</h1>'
         marker = new L.Marker([curr_pins[pin].pin_data.pin_lat, curr_pins[pin].pin_data.pin_lng],).addTo(map).bindPopup(popupTxt);  
+        
         // Create Post    
         const newPost = document.createElement('div');  
         newPost.classList.add('postDisp');
@@ -43,9 +44,9 @@ function loadMap() {
                         ${curr_pins[pin].pin_data.pin_desc} <br> 
                         <button type="button" onclick="gotoPin(${pin})">See on map</button>`; // Make the button Id the same as the div id to get the attributes - could set buttons attributes?
         newPost.innerHTML = postText;
-        console.log(postText)
-        document.getElementById('postsScroll').append(newPost);
-        document.getElementById('postsScroll').append(document.createElement('br'));
+        document.getElementById('postsScroll').prepend(document.createElement('br'));
+        document.getElementById('postsScroll').prepend(newPost);
+        
     }
 }
 loadMap();

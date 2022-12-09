@@ -433,8 +433,6 @@ def add_pin(request):
      pin_lat = request.POST.get('pin_lat')
      pin_lng = request.POST.get('pin_lng')
      pin_points =  request.POST.get('pin_points')
-     trash_pic1 = request.POST.get('trash_pic1')
-     trash_pic2 = request.POST.get('trash_pic2')
 
     # get the old point and update them
      try:
@@ -447,10 +445,17 @@ def add_pin(request):
      old_points = db.child("Data").child("Users").order_by_child("user_id").equal_to(current_user_local_id).get()
      old_points_list = list(old_points.val().items())[0]
 
+    # Convert to int
      if pin_points == "":
          pin_points = 400
+     elif pin_points == "400":
+        pin_points = 400
+     else: 
+        pin_points = 600
      success = True
-     
+     # Get the updated points
+     user_points = pin_points + old_points_list[1]['user_data']['num_points']
+   
      try:
         db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({"num_points": user_points})  
      except Exception as e:
@@ -462,7 +467,7 @@ def add_pin(request):
          request.session['current_user_data']['num_points'] = user_points
          print(request.session.modified)
          request.session.modified = True
-
+    
      data = {
         "pin_name": pin_name,
         "pin_user_id": request.session['localId'],
@@ -474,11 +479,13 @@ def add_pin(request):
             "pin_lat": pin_lat,
             "pin_lng": pin_lng,
             "pin_points": pin_points,
-            "pin_trash_pic1": trash_pic1,
-            "pin_trash_pic2": trash_pic2
             }
      }
+
+    
+     # Add the pin data to the database
      results = db.child("Data").child("Posts").push(data)
+
      return redirect("map")
 
 
