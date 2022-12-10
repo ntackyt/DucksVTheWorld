@@ -71,8 +71,20 @@
 <br>
 <div id="user_posts">
     <div class="scroll_profile" id="user_posts_scroll">
-        <!-- THIS IS WHERE YOU CAN PUT THE POSTS. -->
-        <p> THIS GOES IN THE SCROLL FOR VISUAL TESTING ^_^</p>
+        <h1>Your posts</h1> <br /><br />
+        {% for pin in pins %}
+        <div class="profPostDisp">
+            <h2>
+                {% if pin.pin_data.pin_type_bool == "1" %}
+                Cleaned Up:
+                {% else %}
+                Needs Work:
+                {% endif %} {{ pin.pin_name }}
+            </h2>
+            {{ pin.pin_data.pin_date }} @ {{ pin.pin_data.pin_addr }} <br />
+            {{ pin.pin_data.pin_desc}}
+        </div>
+        {% endfor %}
     </div>
 </div>
 

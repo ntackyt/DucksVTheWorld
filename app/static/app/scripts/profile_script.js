@@ -44,43 +44,44 @@ function flash_prof_msg(attribute_type, msg) {
     }, 1000);
 }
 
-function change_prof_pic() {
-    var new_prof_pic = document.getElementById("new_prof_pic").files[0];
-    var new_prof_pic_file_name = document.getElementById("new_prof_pic").value;
 
-    if (new_prof_pic_file_name == "") {
-        flash_prof_msg("prof_pic", "Please select a file")
-        return;
-    }
+//function change_prof_pic() {
+//    var new_prof_pic = document.getElementById("new_prof_pic").files[0];
+//    var new_prof_pic_file_name = document.getElementById("new_prof_pic").value;
 
-    var file_name = new_prof_pic.name;
-    console.log(file_name);
+//    if (new_prof_pic_file_name == "") {
+//        flash_prof_msg("prof_pic", "Please select a file")
+//        return;
+//    }
 
-    // For CSRF protection
-    const csrftoken = getCookie('csrftoken');
-    // POST data to Django server using AJAX
-    $.ajax({
-        type: "POST",
-        url: "/profile/",
-        headers: {
-            'X-CSRFToken': csrftoken
-        },
-        data: {
-            "attribute_type": "prof_pic",
-            "new_prof_pic": new_prof_pic
-        },
-        success: function (response) {
-            if (response.success == True) {
-                console.log("success");
-            } else {
-                console.log("failure");
-            }
-        },
-        error: function (error) {
-            console.log("Error: ", error);
-        }
-    });
-}
+//    var file_name = new_prof_pic.name;
+//    console.log(file_name);
+
+//    // For CSRF protection
+//    const csrftoken = getCookie('csrftoken');
+//    // POST data to Django server using AJAX
+//    $.ajax({
+//        type: "POST",
+//        url: "/profile/",
+//        headers: {
+//            'X-CSRFToken': csrftoken
+//        },
+//        data: {
+//            "attribute_type": "prof_pic",
+//            "new_prof_pic": new_prof_pic
+//        },
+//        success: function (response) {
+//            if (response.success == True) {
+//                console.log("success");
+//            } else {
+//                console.log("failure");
+//            }
+//        },
+//        error: function (error) {
+//            console.log("Error: ", error);
+//        }
+//    });
+//}
 
 function edit(attribute) {
     var edit_id = "profile_" + attribute + "_edit";
@@ -111,6 +112,12 @@ function change_user_attribute(attribute) {
     if (old_value == new_value) {
         document.getElementById(edit_id).style.display = "none";
         document.getElementById(display_id).style.display = "inline";
+
+        // For profile description
+        if (attribute == "prof_desc") {
+            document.getElementById("profile_prof_desc_pencil").style.display = "inline";
+            document.getElementById("profile_prof_desc_check").style.display = "none";
+        }
 
         // Give input the old value
         document.getElementById(attribute_input_id).value = old_value;

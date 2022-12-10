@@ -4,13 +4,20 @@
 }
 
 .row.content {
-    height: 450px
+    height: 450px;
 }
 
 .sidenav {
-    padding-top: 20px;
+     padding-top: 20px;
     background-color: #c9e9ab;
     height: 150%;
+}
+
+.sidenav_back {
+    display: table-cell;
+    width: 20%;
+    height: 100%;
+    background: #c9e9ab;
 }
 
 .footer {
@@ -50,10 +57,11 @@
 
 #profile {
     text-align: left;
-    margin: 5%;
+    margin-left: 5%;
+    margin-top: 20px;
     display: block;
     float: left;
-    width: 50%;
+    width: calc(70% - 450px)
 }
 
 .profile_label {
@@ -142,39 +150,39 @@ input[type="checkbox"].input-validation-error {
     text-align: center;
     padding: 20px;
   }
-  
-.scroll {
-    background-color: #8f8d8e87;
-    width: 450px;
-    height: 550px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    text-align: center;
-    padding: 20px;
-  }
 
-.scroll_profile{
-    position: absolute;
-    bottom: 0;
+/* Fix posts to the right of the screen */
+#user_posts {
+    position: fixed;
+    right: 500px;
+}
+
+.scroll_profile {
     left: 20%;
-    background-color: #8f8d8e87;
-    width: 1000px;
-    height: 275px;
+    background-color: #005a2a;
+    width: 450px;
+    height: 80vh;
     overflow-x: hidden;
     overflow-y: auto;
     text-align: center;
     padding: 20px;
-  }
-  
-.postDisp {
-    background-color:  #47a6f9c0;
+    /*margin: auto;*/
+    position: absolute;
+    right: 0;
+}
+
+.scroll_profile h1 {
+    color: white;
+}
+
+.profPostDisp {
+    background-color: #c9e9ab;
     border: 2px solid black;
-    outline:#3379b7c0 10px;
-    width: 410px;
-    height: 250px;
-    text-align: center;
-    padding-left: 40px;
-  }
+    outline: #ea9e00 solid 5px;
+    text-align: left;
+    padding: 5px;
+}
+
 
 .profile_info{
     width: auto;
