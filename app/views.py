@@ -228,8 +228,6 @@ def contact(request):
 def show_user_profile(request, user_id):
     assert isinstance(request, HttpRequest)
 
-    print(user_id)
-    print(request.session['localId'])
     if (user_id == request.session['localId']):
         print("they're equal")
         return render(request, "app/profile.html", {'success':True, 'error_msg':""})
@@ -240,7 +238,14 @@ def show_user_profile(request, user_id):
     # Put results in list format
     user_data = list(user_db_data.val().items())[0]
 
-    return render(request, "app/show_user_profile.html", {'user_data':user_data[1]['user_data']})
+    # Get all Posts from user
+    user_db_pins = db.child("Data").child("Posts").order_by_child("pin_user_id").equal_to(user_id).get()
+    
+    user_pin_data = [] # python list
+    for pin in user_db_pins.each():
+        user_pin_data.append(pin.val())
+
+    return render(request, "app/show_user_profile.html", {'user_data':user_data[1]['user_data'], 'pins':user_pin_data})
 
 
 
@@ -248,8 +253,12 @@ def show_user_profile(request, user_id):
 def profile(request):
     assert isinstance(request, HttpRequest)
 
-    #isUpdated = check_user_data(request, request.session['localId'])
-    #assert isUpdated == True
+    # Get all Posts from user
+    user_db_pins = db.child("Data").child("Posts").order_by_child("pin_user_id").equal_to(request.session['localId']).get()
+    
+    user_pin_data = [] # python list
+    for pin in user_db_pins.each():
+        user_pin_data.append(pin.val())
 
     # To get the push id for the current user, as that is what the user data is filed under in JSON format
     current_user_push_id = request.session['user_push_id']
@@ -260,8 +269,9 @@ def profile(request):
 
     # If we got an POST request from an ajax command
     # i.e., if a user edited an attribute on the profile page
-    if request.method == 'POST' and request.is_ajax():
-        attribute_type = request.POST.get("attribute_type")
+    attribute_type = request.POST.get("attribute_type")
+    if request.method == 'POST' and attribute_type != None:
+        
 
        
         # If we are getting an ajax request, then we are just getting text values
@@ -323,8 +333,9 @@ def profile(request):
             request.session.modified = True
 
         # Return profile with new data
-        return render(request, "app/profile.html", {'success':True, 'error_msg':""})
-    return render(request, "app/profile.html", {'success':True, 'error_msg':""})
+        return render(request, "app/profile.html", {'success':True, 'error_msg':"", "pins": user_pin_data})
+
+    return render(request, "app/profile.html", {'success':True, 'error_msg':"", "pins": user_pin_data})
 
 
 
