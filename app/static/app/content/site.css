@@ -171,7 +171,7 @@ input[type="checkbox"].input-validation-error {
     right: 0;
 }
 
-.scroll_profile h1 {
+.scroll_profile h1, h2 {
     color: white;
 }
 
@@ -189,12 +189,12 @@ input[type="checkbox"].input-validation-error {
     height: auto;
 }
 
-  /* Style the tab */
+/* Style the tab */
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
-  }
+}
   
   /* Style the buttons inside the tab */
   .tab button {

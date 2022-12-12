@@ -72,6 +72,9 @@
 <div id="user_posts">
     <div class="scroll_profile" id="user_posts_scroll">
         <h1>Your posts</h1> <br /><br />
+        {% if pins|length < 1 %}
+            <h2>You don't have any posts yet!</h2>
+        {% else %}
         {% for pin in pins %}
         <div class="profPostDisp">
             <h2>
@@ -85,6 +88,7 @@
             {{ pin.pin_data.pin_desc}}
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </div>
 

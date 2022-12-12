@@ -28,6 +28,30 @@
 {% else %}
 <h2>You are not signed in. <a href="/login/">Log in</a> to access this user profile.</h2>
 {% endif %}
+
+<div id="user_posts">
+    <div class="scroll_profile" id="user_posts_scroll">
+        <h1>This user's posts</h1> <br /><br />
+        {% if pins|length < 1 %}
+        <h2>They don't have any posts yet!</h2>
+        {% else %}
+        {% for pin in pins %}
+        <div class="profPostDisp">
+            <h2>
+                {% if pin.pin_data.pin_type_bool == "1" %}
+                Cleaned Up:
+                {% else %}
+                Needs Work:
+                {% endif %} {{ pin.pin_name }}
+            </h2>
+            {{ pin.pin_data.pin_date }} @ {{ pin.pin_data.pin_addr }} <br />
+            {{ pin.pin_data.pin_desc}}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
