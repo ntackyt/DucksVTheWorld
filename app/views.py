@@ -228,8 +228,8 @@ def contact(request):
 def show_user_profile(request, user_id):
     assert isinstance(request, HttpRequest)
 
+    # If the user is trying to get to their own profile, then show them their profile page where they can edit attributes
     if (user_id == request.session['localId']):
-        print("they're equal")
         return render(request, "app/profile.html", {'success':True, 'error_msg':""})
 
     # Get data from user to display on profile page
@@ -411,6 +411,7 @@ def map(request):
     """Renders the map page."""
     assert isinstance(request, HttpRequest)
 
+    # Get all posts from database
     user_db_pins = db.child("Data").child("Posts").get() #returns pyrebase object
    
     
@@ -476,7 +477,6 @@ def add_pin(request):
      # If we successfully added the user points, then change local variable as well
      if success == True:
          request.session['current_user_data']['num_points'] = user_points
-         print(request.session.modified)
          request.session.modified = True
     
      data = {

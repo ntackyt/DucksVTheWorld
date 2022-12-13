@@ -64,6 +64,10 @@
     width: calc(70% - 450px)
 }
 
+#profile textarea {
+    width: 100%;
+}
+
 .profile_label {
     font-weight: bold;
 }

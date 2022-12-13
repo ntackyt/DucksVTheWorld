@@ -2,9 +2,6 @@
 
 {% block content %}
 
-{% if request.session.uid %}
-
-
 <div id="profile">
    <div>
         <span id="profile_prof_pic_content">
@@ -25,10 +22,6 @@
        </p>
    </div>
 </div>
-{% else %}
-<h2>You are not signed in. <a href="/login/">Log in</a> to access this user profile.</h2>
-{% endif %}
-
 <div id="user_posts">
     <div class="scroll_profile" id="user_posts_scroll">
         <h1>This user's posts</h1> <br /><br />
@@ -51,6 +44,7 @@
         {% endif %}
     </div>
 </div>
+
 
 {% endblock %}
 
