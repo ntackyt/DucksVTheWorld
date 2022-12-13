@@ -159,6 +159,7 @@ input[type="checkbox"].input-validation-error {
 #user_posts {
     position: fixed;
     right: 500px;
+    height: 100%;
 }
 
 .scroll_profile {
