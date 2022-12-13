@@ -5,10 +5,13 @@
 # Team Members:
 Rachel Chambers, Naomi Tack, Dinora Blanco, Scott Witschey, and Shreyansh Kumar
 
-# References:
+# Website:
+To view the above code, please visit our website!
+http://ducksvstheworld.pythonanywhere.com/
 
+Note: For the current implementtaion of Ducky Goes to Space the connection must be *http* as https blcks the connection to an http site.
 
-# Installation:
+# Local Installation:
 
 Go to our GitHub page and export our project files (clone or download the zip) into a workspace folder: 
 
