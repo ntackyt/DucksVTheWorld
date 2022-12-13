@@ -25,7 +25,7 @@ SECRET_KEY = 'dbbe7fda-fbce-4c30-95d8-6d64fdf9c7ab'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ducksvstheworld.pythonanywhere.com']
 
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
