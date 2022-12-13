@@ -11,6 +11,41 @@ http://ducksvstheworld.pythonanywhere.com/
 
 Note: For the current implementtaion of Ducky Goes to Space the connection must be *http* as https blcks the connection to an http site.
 
+# File Structure
+
+Django projects made with Visual Studio follow a specific file structure. The main code is in app/views.py, which holds all the code to render HTML pages, as well as app/static/app/modules/map.js, which holds the Javascript for the map page, as well as app/static/app/scripts/profile_script.js, which holds the script for the profile page. 
+
+Here are the important files and their folder structure:
+
+|_ manage.py
+  * when run, starts the Django server
+|_ DuckiesVsJohnWick
+  |_ settings.py
+    * settings for Django
+  |_ urls.py
+    * registers urls with view functions (such as registering <website url>/profile/ with the views.py function profile)
+  |_ wsgi.py
+    * settings for WSGI (how server communicates with Python framework)
+|_ app
+  |_ forms.py
+    * holds Django forms (only sign up and login, as those are the forms that use the Django forms framework
+  |_ views.py
+    * Holds the code rendering each page of the website as well as authentication and profile backend, handles all database calls
+  |_ static
+    |_ app
+        |_ content
+          * holds css files
+        |_ fonts
+          * holds fonts
+        |_ modules
+          * holds javascript for map page
+        |_ scripts
+          * holds all javascript files (minus map page)
+  |_ templates
+    |_ app
+      * hold all .html files (rendered with Jinja)
+
+
 # Local Installation:
 
 Go to our GitHub page and export our project files (clone or download the zip) into a workspace folder: 
