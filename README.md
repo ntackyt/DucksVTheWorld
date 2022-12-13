@@ -12,7 +12,7 @@ Rachel Chambers, Naomi Tack, Dinora Blanco, Scott Witschey, and Shreyansh Kumar
 
 Go to our GitHub page and export our project files (clone or download the zip) into a workspace folder: 
 
-https://github.com/ntackyt/SW_DuckiesVTheWorld.git
+https://github.com/ntackyt/DucksVTheWorld.git
 
 Through terminal (or VSCode’s terminal), move into the workspace folder. From there, you can do the following steps to install the virtual environment and the rest of the dependents. From there you should be able to run the site: 
 
