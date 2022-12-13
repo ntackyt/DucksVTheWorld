@@ -13,38 +13,39 @@ Note: For the current implementtaion of Ducky Goes to Space the connection must 
 
 # File Structure
 
-Django projects made with Visual Studio follow a specific file structure. The main code is in app/views.py, which holds all the code to render HTML pages, as well as app/static/app/modules/map.js, which holds the Javascript for the map page, as well as app/static/app/scripts/profile_script.js, which holds the script for the profile page. 
+Django projects made with Visual Studio follow a specific file structure. The main code is in app/views.py, which holds all the code to render HTML pages, as well as app/static/app/modules/map.js, which holds the Javascript for the map page, as well as app/static/app/scripts/profile_script.js, which holds the script for the profile page. All the HTML files rendered by Django using Jinja markup are in app/templates/app.
 
 Here are the important files and their folder structure:
 
-|_ manage.py
-  * when run, starts the Django server
-|_ DuckiesVsJohnWick
-  |_ settings.py
-    * settings for Django
-  |_ urls.py
-    * registers urls with view functions (such as registering <website url>/profile/ with the views.py function profile)
-  |_ wsgi.py
-    * settings for WSGI (how server communicates with Python framework)
-|_ app
-  |_ forms.py
-    * holds Django forms (only sign up and login, as those are the forms that use the Django forms framework
-  |_ views.py
-    * Holds the code rendering each page of the website as well as authentication and profile backend, handles all database calls
-  |_ static
-    |_ app
-        |_ content
-          * holds css files
-        |_ fonts
-          * holds fonts
-        |_ modules
-          * holds javascript for map page
-        |_ scripts
-          * holds all javascript files (minus map page)
-  |_ templates
-    |_ app
-      * hold all .html files (rendered with Jinja)
-
+```
+└─── manage.py 
+    -- when run, starts the Django server 
+└─── DuckiesVsJohnWick
+  └─── settings.py
+    -- settings for Django
+  └─── urls.py
+    -- registers urls with view functions (such as registering <website url>/profile/ with the views.py function profile)
+  └─── wsgi.py
+    -- settings for WSGI (how server communicates with Python framework)
+└─── app
+  └─── forms.py
+    -- holds Django forms (only sign up and login, as those are the forms that use the Django forms framework)
+  └─── views.py
+    -- Holds the code rendering each page of the website as well as authentication and profile backend, handles all database calls
+  └─── static
+    └─── app
+        └─── content
+          -- holds css files
+        └─── fonts
+          -- holds fonts
+        └─── modules
+          -- holds javascript for map page
+        └─── scripts
+          -- holds all javascript files (minus map page)
+  └─── templates
+    └─── app
+      -- hold all .html files (rendered with Jinja)
+```
 
 # Local Installation:
 
