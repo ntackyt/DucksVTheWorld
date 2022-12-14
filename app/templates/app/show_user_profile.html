@@ -2,6 +2,9 @@
 
 {% block content %}
 
+{% if error_msg|length > 0 %}
+<h1> {{error_msg }}</h1>
+{% else %}
 <div id="profile">
    <div>
         <span id="profile_prof_pic_content">
@@ -44,8 +47,7 @@
         {% endif %}
     </div>
 </div>
-
-
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

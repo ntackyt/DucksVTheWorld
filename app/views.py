@@ -233,20 +233,28 @@ def show_user_profile(request, user_id):
         if (user_id == request.session['localId']):
             return render(request, "app/profile.html", {'success':True, 'error_msg':""})
 
+    error_msg = ""
+    user_data = []
     # Get data from user to display on profile page
-    user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user_id).get()
+    try:
+        user_db_data = db.child("Data").child("Users").order_by_child("user_id").equal_to(user_id).get()
+        # Put results in list format
+        user_data_list = list(user_db_data.val().items())[0]
+        user_data = user_data_list[1]['user_data']
+    except:
+        error_msg = "That is not a valid user."
 
-    # Put results in list format
-    user_data = list(user_db_data.val().items())[0]
-
-    # Get all Posts from user
-    user_db_pins = db.child("Data").child("Posts").order_by_child("pin_user_id").equal_to(user_id).get()
+    try:
+         # Get all Posts from user
+        user_db_pins = db.child("Data").child("Posts").order_by_child("pin_user_id").equal_to(user_id).get()
     
-    user_pin_data = [] # python list
-    for pin in user_db_pins.each():
-        user_pin_data.append(pin.val())
+        user_pin_data = [] # python list
+        for pin in user_db_pins.each():
+            user_pin_data.append(pin.val())
+    except:
+        error_msg = "Could not load posts of user."
 
-    return render(request, "app/show_user_profile.html", {'user_data':user_data[1]['user_data'], 'pins':user_pin_data})
+    return render(request, "app/show_user_profile.html", {'user_data':user_data, 'pins':user_pin_data, 'error_msg': error_msg})
 
 
 
@@ -348,7 +356,6 @@ def about(request):
         'app/about.html',
         {
             'title':'About',
-            'message':'Your application description page.',
             'year':datetime.now().year,
         }
     )
@@ -361,7 +368,6 @@ def whatwedo(request):
         'app/whatwedo.html',
         {
             'title':'What We Do',
-            'message':'Your application description page.',
             'year':datetime.now().year,
         }
     )
@@ -389,7 +395,7 @@ def game(request):
         try:
             db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({"num_points": points_earned})  
         except Exception as e:
-            error_msg = e.args[1]
+            error_msg = "Could not update user points."
             success = False
 
         # Update session first name value if successful
@@ -403,8 +409,8 @@ def game(request):
         'app/game.html',
         {
             'title':'About',
-            'message':'Your application description page.',
             'year':datetime.now().year,
+            'error_msg': error_msg
         }
     )
 
