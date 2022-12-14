@@ -262,6 +262,11 @@ def show_user_profile(request, user_id):
 def profile(request):
     assert isinstance(request, HttpRequest)
 
+    # Make sure user is logged in
+    if (request.session.get("localId") == None):
+        return render(request, "app/profile.html", {'success':False, 'error_msg':" You are not signed in", "pins": []})
+
+
     # Get all Posts from user
     user_db_pins = db.child("Data").child("Posts").order_by_child("pin_user_id").equal_to(request.session['localId']).get()
     
@@ -376,7 +381,15 @@ def game(request):
     """Renders the games page."""
     assert isinstance(request, HttpRequest)
 
-    if request.method == 'POST':
+    error_msg = ""
+    # Make sure that the user is logged in before awarding points
+
+    try:
+        request.session['localId']
+    except Exception as e:
+        error_msg = "You are not signed in, so points cannot be awarded."
+        
+    if request.method == 'POST' and error_msg == "":
 
         # To get the push id for the current user, as that is what the user data is filed under in JSON format
         current_user_push_id = request.session['user_push_id']
@@ -390,7 +403,7 @@ def game(request):
         old_points_list = list(old_points.val().items())[0]
         points_earned = int(points_earned) + int(old_points_list[1]['user_data']['num_points'])
 
-        error_msg = ""
+        
         success = True
         try:
             db.child("Data").child("Users").child(current_user_push_id).child("user_data").update({"num_points": points_earned})  
@@ -408,8 +421,7 @@ def game(request):
         request,
         'app/game.html',
         {
-            'title':'About',
-            'year':datetime.now().year,
+            'title':'Games',
             'error_msg': error_msg
         }
     )
