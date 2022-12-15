@@ -13,7 +13,7 @@ Note: For the current implementtaion of Ducky Goes to Space the connection must 
 
 # File Structure:
 
-Django projects made with Visual Studio follow a specific file structure. The main code is in app/views.py, which holds all the code to render HTML pages, as well as app/static/app/modules/map.js, which holds the Javascript for the map page, as well as app/static/app/scripts/profile_script.js, which holds the script for the profile page. All the HTML files rendered by Django using Jinja markup are in app/templates/app.
+Django projects made with Visual Studio follow a specific file structure. The main code is in app/views.py, a Python file which holds logic to send posts and user data to the database, sign in and register users, and render HTML pages populated by data from our database. We also use Javascript. One important JS file is at app/static/app/modules/map.js, which holds the Javascript for the map page. The JS file at app/static/app/scripts/profile_script.js is also important, as it holds the code for the profile page. All the HTML files rendered by Django using Jinja markup are in app/templates/app.
 
 You also want to look at app/tests.py which contain unit tests to make sure pages load correctly. If you download our project and install Django and Python and then go to the project folder where manage.py is stored, you can run ```python manage.py test``` and run the tests in tests.py. 
 
@@ -26,7 +26,7 @@ Here are the important files and their folder structure:
   └─── settings.py
     -- settings for Django
   └─── urls.py
-    -- registers urls with view functions (such as registering <website url>/profile/ with the views.py function profile)
+    -- registers urls with view functions (such as registering <website url>/profile/ with the views.py function "profile")
   └─── wsgi.py
     -- settings for WSGI (how server communicates with Python framework)
 └─── app
